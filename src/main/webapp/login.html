@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Aarthi Mart - Login</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Inter", sans-serif;
+            background: #f8f4ef;
+            color: #241f20;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        /* =========================
+           LEFT SIDE
+        ========================= */
+
+        .visual-side {
+            position: relative;
+            min-height: 100vh;
+            background:
+                linear-gradient(
+                    rgba(77, 24, 37, 0.18),
+                    rgba(77, 24, 37, 0.35)
+                ),
+                url("https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=85")
+                center / cover no-repeat;
+
+            display: flex;
+            align-items: flex-end;
+            padding: 70px;
+        }
+
+        .visual-content {
+            color: white;
+            max-width: 480px;
+        }
+
+        .visual-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .visual-content h1 {
+            font-family: "DM Serif Display", serif;
+            font-size: clamp(3rem, 5vw, 5rem);
+            line-height: 0.98;
+            font-weight: 400;
+            margin-bottom: 22px;
+        }
+
+        .visual-content p {
+            font-size: 1rem;
+            line-height: 1.7;
+            max-width: 420px;
+            opacity: 0.92;
+        }
+
+        /* =========================
+           RIGHT SIDE
+        ========================= */
+
+        .login-side {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px;
+            background: #fffdf9;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .logo {
+            display: inline-block;
+            text-decoration: none;
+            color: #241f20;
+
+            font-size: 1.25rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+
+            margin-bottom: 55px;
+        }
+
+        .logo span {
+            color: #6d2636;
+        }
+
+        .login-heading {
+            margin-bottom: 35px;
+        }
+
+        .login-heading h2 {
+            font-family: "DM Serif Display", serif;
+            font-size: 3rem;
+            font-weight: 400;
+            line-height: 1;
+            margin-bottom: 12px;
+            color: #241f20;
+        }
+
+        .login-heading p {
+            color: #756d6d;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+
+            color: #4d1825;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 54px;
+
+            padding: 0 16px;
+
+            border: 1px solid #ded6d0;
+            background: #fff;
+
+            color: #241f20;
+            font-family: inherit;
+            font-size: 0.95rem;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #6d2636;
+
+            box-shadow:
+                0 0 0 3px rgba(109, 38, 54, 0.08);
+        }
+
+        .password-row {
+            position: relative;
+        }
+
+        .password-row input {
+            padding-right: 85px;
+        }
+
+        .show-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            border: none;
+            background: transparent;
+
+            color: #6d2636;
+
+            font-family: inherit;
+            font-size: 0.72rem;
+            font-weight: 700;
+
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+
+            cursor: pointer;
+        }
+
+        /* =========================
+           EXTRA ROW
+        ========================= */
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin: 5px 0 28px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            font-size: 0.82rem;
+            color: #756d6d;
+
+            cursor: pointer;
+        }
+
+        .remember input {
+            accent-color: #6d2636;
+        }
+
+        .forgot-link {
+            color: #6d2636;
+            text-decoration: none;
+
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           LOGIN BUTTON
+        ========================= */
+
+        .login-button {
+            width: 100%;
+            height: 56px;
+
+            border: none;
+
+            background: #6d2636;
+            color: white;
+
+            font-family: inherit;
+            font-size: 0.78rem;
+            font-weight: 700;
+
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+
+            cursor: pointer;
+
+            transition:
+                background 0.25s ease,
+                transform 0.2s ease;
+        }
+
+        .login-button:hover {
+            background: #4d1825;
+            transform: translateY(-1px);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        /* =========================
+           REGISTER
+        ========================= */
+
+        .register-text {
+            text-align: center;
+            margin-top: 28px;
+
+            font-size: 0.88rem;
+            color: #756d6d;
+        }
+
+        .register-text a {
+            color: #6d2636;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .register-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           BACK HOME
+        ========================= */
+
+        .back-home {
+            display: inline-block;
+            margin-top: 35px;
+
+            color: #756d6d;
+
+            font-size: 0.78rem;
+            font-weight: 600;
+
+            text-decoration: none;
+        }
+
+        .back-home:hover {
+            color: #6d2636;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .page {
+                grid-template-columns: 1fr;
+            }
+
+            .visual-side {
+                min-height: 340px;
+                padding: 45px;
+            }
+
+            .visual-content h1 {
+                font-size: 3rem;
+            }
+
+            .login-side {
+                min-height: auto;
+                padding: 55px 30px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .visual-side {
+                min-height: 280px;
+                padding: 30px;
+            }
+
+            .visual-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .login-side {
+                padding: 40px 22px;
+            }
+
+            .logo {
+                margin-bottom: 40px;
+            }
+
+            .login-heading h2 {
+                font-size: 2.5rem;
+            }
+
+            .form-options {
+                align-items: flex-start;
+                gap: 15px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <main class="page">
+
+        <!-- LEFT VISUAL -->
+
+        <section class="visual-side">
+
+            <div class="visual-content">
+
+                <div class="visual-label">
+                    Aarthi Mart
+                </div>
+
+                <h1>
+                    Your style,<br>
+                    your story.
+                </h1>
+
+                <p>
+                    Discover pieces you'll love, from everyday essentials
+                    to the little things that make your style yours.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOGIN -->
+
+        <section class="login-side">
+
+            <div class="login-box">
+
+                <a href="index.html" class="logo">
+                    AARTHI<span>MART</span>
+                </a>
+
+
+                <div class="login-heading">
+
+                    <h2>
+                        Welcome back.
+                    </h2>
+
+                    <p>
+                        Sign in to continue shopping with Aarthi Mart.
+                    </p>
+
+                </div>
+
+
+                <form id="loginForm">
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="password-row">
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="show-password"
+                                id="showPassword">
+                                Show
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-options">
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                id="remember"
+                            >
+
+                            Remember me
+
+                        </label>
+
+                        <a href="#" class="forgot-link">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="login-button">
+                        Sign In
+                    </button>
+
+                </form>
+
+
+                <div class="register-text">
+
+                    Don't have an account?
+                    <a href="register.html">
+                        Create one
+                    </a>
+
+                </div>
+
+
+                <a href="index.html" class="back-home">
+                    ← Back to Aarthi Mart
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        /* =========================
+           SHOW PASSWORD
+        ========================= */
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const showPassword =
+            document.getElementById("showPassword");
+
+        showPassword.addEventListener("click", () => {
+
+            if (passwordInput.type === "password") {
+
+                passwordInput.type = "text";
+                showPassword.textContent = "Hide";
+
+            } else {
+
+                passwordInput.type = "password";
+                showPassword.textContent = "Show";
+
+            }
+
+        });
+
+
+        /* =========================
+           LOGIN
+        ========================= */
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        loginForm.addEventListener("submit", async (event) => {
+
+            event.preventDefault();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const password =
+                document.getElementById("password").value;
+
+            if (!email || !password) {
+                alert("Please enter your email and password.");
+                return;
+            }
+
+            try {
+
+                const response = await fetch("auth?action=login", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/x-www-form-urlencoded"
+                    },
+
+                    body:
+                        `email=${encodeURIComponent(email)}` +
+                        `&password=${encodeURIComponent(password)}`
+
+                });
+
+                const result =
+                    await response.json();
+
+                if (result.success) {
+
+                    window.location.href = "index.html";
+
+                } else {
+
+                    alert(
+                        result.message ||
+                        "Invalid email or password."
+                    );
+
+                }
+
+            } catch (error) {
+
+                console.error("Login error:", error);
+
+                alert(
+                    "Something went wrong while logging in."
+                );
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>
