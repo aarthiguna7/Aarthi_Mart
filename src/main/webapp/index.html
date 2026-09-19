@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Aarthi Mart</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="mobile-container">
+
+    <!-- ================= SIDE MENU ================= -->
+
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <aside class="side-menu" id="sideMenu">
+
+        <div class="side-menu-header">
+
+            <div class="side-menu-brand">
+
+                <img
+                    src="https://i.postimg.cc/QNp2QnXQ/Whats-App-Image-2026-09-14-at-10-27-23-AM.jpg"
+                    alt="Aarthi Mart Logo">
+
+                <span>AARTHI MART</span>
+
+            </div>
+
+            <button
+                class="close-menu"
+                id="closeMenu"
+                type="button">
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+
+        <div class="side-menu-links">
+
+            <a href="index.html">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>Home</span>
+
+            </a>
+
+
+            <a href="#categories">
+
+                <i class="fa-solid fa-layer-group"></i>
+
+                <span>Categories</span>
+
+            </a>
+
+
+            <a href="#bestsellers">
+
+                <i class="fa-solid fa-star"></i>
+
+                <span>Best Sellers</span>
+
+            </a>
+
+
+            <a href="#offers">
+
+                <i class="fa-solid fa-percent"></i>
+
+                <span>Offers</span>
+
+            </a>
+
+
+            <a href="#collections">
+
+                <i class="fa-solid fa-sparkles"></i>
+
+                <span>New Collections</span>
+
+            </a>
+
+
+            <a href="seller.html">
+
+                <i class="fa-solid fa-store"></i>
+
+                <span>Sell on Aarthi Mart</span>
+
+            </a>
+
+
+            <a href="help.html">
+
+    <i class="fa-regular fa-circle-question"></i>
+
+    <span>Help & Support</span>
+
+</a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- ================= ACCOUNT DROPDOWN ================= -->
+
+    <div class="account-dropdown" id="accountDropdown">
+
+        <div class="account-dropdown-header">
+
+            <div class="account-avatar">
+
+                <i class="fa-regular fa-user"></i>
+
+            </div>
+
+            <div>
+
+                <strong>My Account</strong>
+
+                <span>
+                    Login to view your account
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="account-dropdown-links">
+
+            <a href="login.html">
+
+                <i class="fa-regular fa-user"></i>
+
+                <span>My Account</span>
+
+            </a>
+
+
+            <a href="login.html">
+
+                <i class="fa-solid fa-box"></i>
+
+                <span>My Orders</span>
+
+            </a>
+
+
+            <a href="wishlist.html">
+
+                <i class="fa-regular fa-heart"></i>
+
+                <span>My Wishlist</span>
+
+            </a>
+
+
+            <a href="cart.html">
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                <span>My Cart</span>
+
+            </a>
+
+
+            <a href="seller.html">
+
+                <i class="fa-solid fa-store"></i>
+
+                <span>Sell on Aarthi Mart</span>
+
+            </a>
+
+        </div>
+
+
+        <div class="account-dropdown-footer">
+
+            <a href="login.html">
+                Login / Register
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+
+        <div class="brand-container">
+
+            <button
+                class="menu-icon"
+                id="menuButton"
+                type="button">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+
+            <a
+                href="index.html"
+                class="brand-link">
+
+                <img
+                    class="brand-logo"
+                    src="https://i.postimg.cc/QNp2QnXQ/Whats-App-Image-2026-09-14-at-10-27-23-AM.jpg"
+                    alt="Aarthi Mart Logo">
+
+                <span class="brand-name">
+                    AARTHI MART
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <div class="header-icons">
+
+            <!-- SEARCH -->
+
+            <button
+                class="header-action"
+                id="searchButton"
+                type="button"
+                aria-label="Search">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </button>
+
+
+            <!-- WISHLIST -->
+
+            <a
+                href="wishlist.html"
+                class="header-action"
+                aria-label="Wishlist">
+
+                <i class="fa-regular fa-heart"></i>
+
+            </a>
+
+
+            <!-- ACCOUNT -->
+
+            <button
+                class="header-action"
+                id="accountButton"
+                type="button"
+                aria-label="Account">
+
+                <i class="fa-regular fa-user"></i>
+
+            </button>
+
+
+            <!-- CART -->
+
+            <a
+                href="cart.html"
+                class="cart-icon-wrap header-action"
+                aria-label="Cart">
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                <span
+                    id="cartBadge"
+                    class="cart-badge">
+
+                    0
+
+                </span>
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= SEARCH ================= -->
+
+    <section
+        class="search-section"
+        id="search">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search for products, brands and more">
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= QUICK CATEGORIES ================= -->
+
+    <section class="categories-scroll">
+
+        <a
+            href="#offers"
+            class="category-circle-item">
+
+            <div class="circle-img-wrap offer-badge">
+
+                <strong>50%</strong>
+
+                <span>OFF</span>
+
+            </div>
+
+            <span>Offers</span>
+
+        </a>
+
+
+        <a
+            href="#rechecked"
+            class="category-circle-item">
+
+            <div class="circle-img-wrap">
+
+                <img
+                    src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=300&q=80"
+                    alt="Re Checked">
+
+            </div>
+
+            <span>Re:Checked</span>
+
+        </a>
+
+
+        <a
+            href="#dresses"
+            class="category-circle-item">
+
+            <div class="circle-img-wrap">
+
+                <img
+                    src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=300&q=80"
+                    alt="Dresses">
+
+            </div>
+
+            <span>Dresses</span>
+
+        </a>
+
+
+        <a
+            href="#tops"
+            class="category-circle-item">
+
+            <div class="circle-img-wrap">
+
+                <img
+                    src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=300&q=80"
+                    alt="Tops">
+
+            </div>
+
+            <span>Tops</span>
+
+        </a>
+
+
+        <a
+            href="#denim"
+            class="category-circle-item">
+
+            <div class="circle-img-wrap">
+
+                <img
+                    src="https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=300&q=80"
+                    alt="Denim">
+
+            </div>
+
+            <span>Denim</span>
+
+        </a>
+
+
+        <a
+            href="#footwear"
+            class="category-circle-item">
+
+            <div class="circle-img-wrap">
+
+                <img
+                    src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=300&q=80"
+                    alt="Footwear">
+
+            </div>
+
+            <span>Footwear</span>
+
+        </a>
+
+
+        <a
+            href="#trousers"
+            class="category-circle-item">
+
+            <div class="circle-img-wrap">
+
+                <img
+                    src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=300&q=80"
+                    alt="Trousers">
+
+            </div>
+
+            <span>Trousers</span>
+
+        </a>
+
+    </section>
+
+
+    <!-- ================= HERO CAROUSEL ================= -->
+
+    <section
+        class="hero-section"
+        id="offers">
+
+        <div class="hero-carousel">
+
+
+            <div class="hero-slide active">
+
+                <img
+                    src="https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=1600&q=85"
+                    alt="Retail Fashion">
+
+                <div class="hero-overlay">
+
+                    <p class="hero-small">
+                        THE NEW EDIT
+                    </p>
+
+                    <h1>
+                        RETAIL
+                    </h1>
+
+                    <p>
+                        Discover pieces made for every version of you.
+                    </p>
+
+                    <button
+                        class="hero-btn"
+                        data-collection="retail"
+                        type="button">
+
+                        SHOP NOW
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-slide">
+
+                <img
+                    src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1600&q=85"
+                    alt="Back to Campus">
+
+                <div class="hero-overlay">
+
+                    <p class="hero-small">
+                        CAMPUS EDIT
+                    </p>
+
+                    <h1>
+                        BACK TO CAMPUS
+                    </h1>
+
+                    <p>
+                        Easy looks for long days and late evenings.
+                    </p>
+
+                    <button
+                        class="hero-btn"
+                        data-collection="campus"
+                        type="button">
+
+                        SHOP NOW
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-slide">
+
+                <img
+                    src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=1600&q=85"
+                    alt="Summer Wear">
+
+                <div class="hero-overlay">
+
+                    <p class="hero-small">
+                        SEASONAL EDIT
+                    </p>
+
+                    <h1>
+                        SUMMER WEAR
+                    </h1>
+
+                    <p>
+                        Light layers, fresh colours and effortless style.
+                    </p>
+
+                    <button
+                        class="hero-btn"
+                        data-collection="summer"
+                        type="button">
+
+                        SHOP NOW
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-slide">
+
+                <img
+                    src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1600&q=85"
+                    alt="Spring Wear">
+
+                <div class="hero-overlay">
+
+                    <p class="hero-small">
+                        FRESH ARRIVALS
+                    </p>
+
+                    <h1>
+                        SPRING WEAR
+                    </h1>
+
+                    <p>
+                        Soft colours and new-season favourites.
+                    </p>
+
+                    <button
+                        class="hero-btn"
+                        data-collection="spring"
+                        type="button">
+
+                        SHOP NOW
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-slide">
+
+                <img
+                    src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=1600&q=85"
+                    alt="Autumn Wear">
+
+                <div class="hero-overlay">
+
+                    <p class="hero-small">
+                        SEASONAL EDIT
+                    </p>
+
+                    <h1>
+                        AUTUMN WEAR
+                    </h1>
+
+                    <p>
+                        Rich tones and timeless everyday pieces.
+                    </p>
+
+                    <button
+                        class="hero-btn"
+                        data-collection="autumn"
+                        type="button">
+
+                        SHOP NOW
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="hero-slide">
+
+                <img
+                    src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1600&q=85"
+                    alt="Streetwear">
+
+                <div class="hero-overlay">
+
+                    <p class="hero-small">
+                        EVERYDAY STYLE
+                    </p>
+
+                    <h1>
+                        STREETWEAR
+                    </h1>
+
+                    <p>
+                        Your style. Your rules. Your everyday uniform.
+                    </p>
+
+                    <button
+                        class="hero-btn"
+                        data-collection="streetwear"
+                        type="button">
+
+                        SHOP NOW
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="hero-arrow hero-prev"
+                type="button">
+
+                <i class="fa-solid fa-chevron-left"></i>
+
+            </button>
+
+
+            <button
+                class="hero-arrow hero-next"
+                type="button">
+
+                <i class="fa-solid fa-chevron-right"></i>
+
+            </button>
+
+
+            <div class="hero-dots">
+
+                <button
+                    class="hero-dot active"
+                    type="button">
+                </button>
+
+                <button
+                    class="hero-dot"
+                    type="button">
+                </button>
+
+                <button
+                    class="hero-dot"
+                    type="button">
+                </button>
+
+                <button
+                    class="hero-dot"
+                    type="button">
+                </button>
+
+                <button
+                    class="hero-dot"
+                    type="button">
+                </button>
+
+                <button
+                    class="hero-dot"
+                    type="button">
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= SHOP BY CATEGORY ================= -->
+
+    <section id="categories">
+
+        <h2 class="section-title">
+            Shop by Category
+        </h2>
+
+
+        <div class="categories-grid">
+
+
+            <a
+                href="#products"
+                class="cat-grid-item"
+                data-category="rechecked">
+
+                <span class="new-tag">
+                    NEW
+                </span>
+
+                <div class="cat-img-wrap">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=400&q=80"
+                        alt="Re Checked">
+
+                </div>
+
+                <span>
+                    Re:Checked
+                </span>
+
+            </a>
+
+
+            <a
+                href="#products"
+                class="cat-grid-item"
+                data-category="dresses">
+
+                <div class="cat-img-wrap">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=400&q=80"
+                        alt="Dresses">
+
+                </div>
+
+                <span>
+                    Dresses
+                </span>
+
+            </a>
+
+
+            <a
+                href="#products"
+                class="cat-grid-item"
+                data-category="tops">
+
+                <div class="cat-img-wrap">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=400&q=80"
+                        alt="Tops">
+
+                </div>
+
+                <span>
+                    Tops
+                </span>
+
+            </a>
+
+
+            <a
+                href="#products"
+                class="cat-grid-item"
+                data-category="footwear">
+
+                <div class="cat-img-wrap">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=400&q=80"
+                        alt="Footwear">
+
+                </div>
+
+                <span>
+                    Footwear
+                </span>
+
+            </a>
+
+
+            <a
+                href="#products"
+                class="cat-grid-item"
+                data-category="handbags">
+
+                <div class="cat-img-wrap">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=400&q=80"
+                        alt="Handbags">
+
+                </div>
+
+                <span>
+                    Handbags
+                </span>
+
+            </a>
+
+
+            <a
+                href="#products"
+                class="cat-grid-item"
+                data-category="coords">
+
+                <div class="cat-img-wrap">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?auto=format&fit=crop&w=400&q=80"
+                        alt="Co ords">
+
+                </div>
+
+                <span>
+                    Co-ords
+                </span>
+
+            </a>
+
+
+            <a
+                href="#products"
+                class="cat-grid-item"
+                data-category="trousers">
+
+                <div class="cat-img-wrap">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=400&q=80"
+                        alt="Trousers">
+
+                </div>
+
+                <span>
+                    Trousers
+                </span>
+
+            </a>
+
+
+            <a
+                href="#products"
+                class="cat-grid-item"
+                data-category="skirts">
+
+                <div class="cat-img-wrap">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?auto=format&fit=crop&w=400&q=80"
+                        alt="Skirts">
+
+                </div>
+
+                <span>
+                    Skirts
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= COLLECTIONS ================= -->
+
+    <section id="collections">
+
+        <h2 class="section-title">
+            Featured Collections
+        </h2>
+
+
+        <div class="collections-grid">
+
+
+            <a
+                href="#products"
+                class="collection-card"
+                data-category="tops">
+
+                <img
+                    src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=1000&q=85"
+                    alt="Short Tops">
+
+                <div class="collection-overlay">
+
+                    <h4>
+                        SHORT TOPS
+                    </h4>
+
+                    <span>
+                        SHOP COLLECTION
+                    </span>
+
+                </div>
+
+            </a>
+
+
+            <a
+                href="#products"
+                class="collection-card"
+                data-category="bestsellers">
+
+                <img
+                    src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1000&q=85"
+                    alt="Best Sellers">
+
+                <div class="collection-overlay">
+
+                    <h4>
+                        BEST SELLERS
+                    </h4>
+
+                    <span>
+                        SHOP COLLECTION
+                    </span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ALL CLOTHING ================= -->
+
+    <section id="products">
+
+        <h2
+            class="section-title"
+            id="productSectionTitle">
+
+            All Clothing
+
+        </h2>
+
+
+        <div class="product-controls">
+
+            <div class="product-result-label">
+                Showing all products
+            </div>
+
+
+            <label>
+
+                <span>
+                    Sort by
+                </span>
+
+                <select id="sortSelect">
+
+                    <option value="recommended">
+                        Recommended
+                    </option>
+
+                    <option value="newest">
+                        Newest
+                    </option>
+
+                    <option value="price-low">
+                        Price: Low to High
+                    </option>
+
+                    <option value="price-high">
+                        Price: High to Low
+                    </option>
+
+                    <option value="rating">
+                        Rating
+                    </option>
+
+                </select>
+
+            </label>
+
+        </div>
+
+
+        <div
+            class="product-grid"
+            id="productGrid">
+
+            <div class="loading-products">
+                Loading products...
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= ACCOUNT / SERVICES ================= -->
+
+    <section class="account-services">
+
+        <h2 class="section-title">
+            Aarthi Mart
+        </h2>
+
+
+        <div class="service-links">
+<a href="account.html">
+
+    <i class="fa-regular fa-user"></i>
+
+    <span>
+        My Account
+    </span>
+
+</a>
+
+
+            <a href="orders.html">
+
+                <i class="fa-solid fa-box"></i>
+
+                <span>
+                    My Orders
+                </span>
+
+            </a>
+
+
+            <a href="wishlist.html">
+
+                <i class="fa-regular fa-heart"></i>
+
+                <span>
+                    My Wishlist
+                </span>
+
+            </a>
+
+
+            <a href="cart.html">
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                <span>
+                    My Cart
+                </span>
+
+            </a>
+
+
+            <a href="seller.html">
+
+                <i class="fa-solid fa-store"></i>
+
+                <span>
+                    Sell on Aarthi Mart
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="site-footer">
+
+        <div class="footer-logo">
+
+            <img
+                src="https://i.postimg.cc/QNp2QnXQ/Whats-App-Image-2026-09-14-at-10-27-23-AM.jpg"
+                alt="Aarthi Mart Logo">
+
+            <span>
+                AARTHI MART
+            </span>
+
+        </div>
+
+
+        <p>
+            Fashion. Choice. You.
+        </p>
+
+
+        <div class="footer-links">
+
+            <a href="account.html">
+    Account
+</a>
+
+            <a href="register.html">
+                Register
+            </a>
+
+            <a href="seller.html">
+                Sell with us
+            </a>
+
+            <a href="#categories">
+                Categories
+            </a>
+
+        </div>
+
+
+        <p class="copyright">
+            © 2026 Aarthi Mart. All rights reserved.
+        </p>
+
+    </footer>
+
+
+    <!-- ================= MOBILE BOTTOM NAV ================= -->
+
+    <nav class="bottom-nav">
+
+        <a
+            href="index.html"
+            class="nav-item active">
+
+            <i class="fa-solid fa-house"></i>
+
+            <span>
+                Home
+            </span>
+
+        </a>
+
+
+        <a
+            href="#categories"
+            class="nav-item">
+
+            <i class="fa-solid fa-layer-group"></i>
+
+            <span>
+                Categories
+            </span>
+
+        </a>
+
+
+        <a
+            href="wishlist.html"
+            class="nav-item">
+
+            <i class="fa-regular fa-heart"></i>
+
+            <span>
+                Wishlist
+            </span>
+
+        </a>
+
+
+        <a
+    href="#account"
+    class="nav-item"
+    id="bottomAccountButton">
+
+            <i class="fa-regular fa-user"></i>
+
+            <span>
+                Account
+            </span>
+
+        </a>
+
+
+        <a
+            href="cart.html"
+            class="nav-item">
+
+            <i class="fa-solid fa-bag-shopping"></i>
+
+            <span>
+                Cart
+            </span>
+
+        </a>
+
+    </nav>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
