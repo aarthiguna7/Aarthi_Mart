@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Orders - Aarthi Mart</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: #fdf8ef;
+            color: #4a2630;
+            font-family: "Poppins", sans-serif;
+        }
+
+        header {
+            height: 76px;
+            background: #fffaf2;
+            border-bottom: 1px solid #eadfd2;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .back-btn,
+        .cart-link {
+            text-decoration: none;
+            color: #4a2630;
+
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .back-btn:hover,
+        .cart-link:hover {
+            opacity: 0.7;
+        }
+
+        .logo {
+            font-family: "Playfair Display", serif;
+            font-size: 27px;
+            font-weight: 700;
+            color: #6f2939;
+        }
+
+        main {
+            width: min(1000px, 92%);
+            margin: auto;
+            padding: 45px 0 70px;
+        }
+
+        .heading {
+            text-align: center;
+            margin-bottom: 38px;
+        }
+
+        .heading h1 {
+            font-family: "Playfair Display", serif;
+            font-size: 42px;
+            color: #6f2939;
+            margin-bottom: 8px;
+        }
+
+        .heading p {
+            color: #8a7478;
+            font-size: 14px;
+        }
+
+        .order-card {
+            background: #fffdf9;
+            border: 1px solid #eadfd2;
+            border-radius: 14px;
+
+            margin-bottom: 22px;
+            overflow: hidden;
+        }
+
+        .order-header {
+            padding: 20px 22px;
+
+            background: #fbf3e8;
+            border-bottom: 1px solid #eadfd2;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .order-number {
+            font-family: "Playfair Display", serif;
+            font-size: 20px;
+            color: #6f2939;
+        }
+
+        .order-date {
+            margin-top: 4px;
+            font-size: 12px;
+            color: #8a7478;
+        }
+
+        .status {
+            padding: 7px 13px;
+            border-radius: 20px;
+
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+
+            background: #f0e2d7;
+            color: #6f2939;
+        }
+
+        .status.delivered {
+            background: #e4f0df;
+            color: #48623d;
+        }
+
+        .status.cancelled {
+            background: #f5dddd;
+            color: #8b3046;
+        }
+
+        .status.shipped {
+            background: #e2e8f5;
+            color: #43577d;
+        }
+
+        .order-body {
+            padding: 20px 22px;
+        }
+
+        .items-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #a17d85;
+            margin-bottom: 13px;
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 12px 0;
+            border-bottom: 1px solid #f0e7dd;
+
+            gap: 15px;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+
+        .item-icon {
+            width: 42px;
+            height: 52px;
+
+            border-radius: 6px;
+
+            background: #f1e6db;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            color: #9a6b76;
+            flex-shrink: 0;
+        }
+
+        .item-name {
+            font-family: "Playfair Display", serif;
+            font-size: 15px;
+            color: #4a2630;
+        }
+
+        .item-quantity {
+            font-size: 11px;
+            color: #8a7478;
+            margin-top: 3px;
+        }
+
+        .item-price {
+            font-size: 13px;
+            font-weight: 600;
+            color: #6f2939;
+            white-space: nowrap;
+        }
+
+        .order-footer {
+            border-top: 1px solid #eadfd2;
+
+            padding: 17px 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .total {
+            font-size: 13px;
+            color: #8a7478;
+        }
+
+        .total strong {
+            color: #6f2939;
+            font-size: 18px;
+            margin-left: 8px;
+        }
+
+        .message {
+            text-align: center;
+            padding: 70px 20px;
+            color: #8a7478;
+        }
+
+        .message i {
+            font-size: 42px;
+            color: #b77b89;
+            margin-bottom: 18px;
+        }
+
+        .message h2 {
+            font-family: "Playfair Display", serif;
+            font-size: 30px;
+            color: #6f2939;
+            margin-bottom: 8px;
+        }
+
+        .message p {
+            font-size: 14px;
+            margin-bottom: 22px;
+        }
+
+        .shop-btn {
+            display: inline-block;
+
+            padding: 12px 25px;
+
+            background: #6f2939;
+            color: white;
+
+            text-decoration: none;
+            border-radius: 7px;
+
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .shop-btn:hover {
+            background: #54202c;
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 22px;
+            }
+
+            main {
+                width: 92%;
+                padding-top: 30px;
+            }
+
+            .heading h1 {
+                font-size: 34px;
+            }
+
+            .order-header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .order-body,
+            .order-header,
+            .order-footer {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <a href="index.html" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back
+    </a>
+
+    <div class="logo">
+        Aarthi Mart
+    </div>
+
+    <a href="cart.html" class="cart-link">
+        <i class="fa-solid fa-bag-shopping"></i>
+        Cart
+    </a>
+
+</header>
+
+<main>
+
+    <div class="heading">
+
+        <h1>My Orders</h1>
+
+        <p>
+            Track your Aarthi Mart purchases.
+        </p>
+
+    </div>
+
+    <div id="ordersContainer">
+
+        <div class="message">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p>Loading your orders...</p>
+        </div>
+
+    </div>
+
+</main>
+
+<script>
+
+    const ordersContainer =
+        document.getElementById("ordersContainer");
+
+
+    async function loadOrders() {
+
+        try {
+
+            const response =
+                await fetch("orders");
+
+            if (response.status === 401) {
+
+                window.location.href =
+                    "login.html";
+
+                return;
+            }
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "Could not load orders"
+                );
+            }
+
+            const orders =
+                await response.json();
+
+            if (!orders ||
+                orders.length === 0) {
+
+                showEmptyOrders();
+                return;
+            }
+
+            await renderOrders(orders);
+
+        } catch (error) {
+
+            console.error(error);
+
+            ordersContainer.innerHTML = `
+
+                <div class="message">
+
+                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                    <h2>Something went wrong</h2>
+
+                    <p>
+                        We couldn't load your orders.
+                        Please try again.
+                    </p>
+
+                    <button
+                        class="shop-btn"
+                        onclick="loadOrders()"
+                        style="border:none;cursor:pointer;">
+                        Try Again
+                    </button>
+
+                </div>
+
+            `;
+        }
+    }
+
+
+    async function renderOrders(orders) {
+
+        const orderHTML = [];
+
+        for (const order of orders) {
+
+            const items =
+                await loadOrderItems(order.id);
+
+            orderHTML.push(
+                createOrderCard(
+                    order,
+                    items
+                )
+            );
+        }
+
+        ordersContainer.innerHTML =
+            orderHTML.join("");
+    }
+
+
+    async function loadOrderItems(orderId) {
+
+        try {
+
+            const response =
+                await fetch(
+                    "orders?action=items&orderId="
+                    + encodeURIComponent(orderId)
+                );
+
+            if (!response.ok) {
+                return [];
+            }
+
+            return await response.json();
+
+        } catch (error) {
+
+            console.error(error);
+
+            return [];
+        }
+    }
+
+
+    function createOrderCard(
+        order,
+        items
+    ) {
+
+        const date =
+            formatDate(order.createdAt);
+
+        const status =
+            String(
+                order.status || "PENDING"
+            ).toUpperCase();
+
+        const statusClass =
+            status.toLowerCase();
+
+        const itemHTML =
+            items.length > 0
+
+                ? items.map(item => `
+
+                    <div class="order-item">
+
+                        <div class="item-left">
+
+                            <div class="item-icon">
+
+                                <i class="fa-solid fa-shirt"></i>
+
+                            </div>
+
+                            <div>
+
+                                <div class="item-name">
+                                    ${escapeHtml(
+                                        item.productName ||
+                                        "Product #" + item.productId
+                                    )}
+                                </div>
+
+                                <div class="item-quantity">
+                                    Quantity: ${item.quantity}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="item-price">
+                            ₹${formatMoney(item.price)}
+                        </div>
+
+                    </div>
+
+                `).join("")
+
+                : `
+
+                    <div class="order-item">
+
+                        <div class="item-left">
+
+                            <div class="item-icon">
+                                <i class="fa-solid fa-box"></i>
+                            </div>
+
+                            <div>
+                                <div class="item-name">
+                                    Order items
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                `;
+
+        return `
+
+            <div class="order-card">
+
+                <div class="order-header">
+
+                    <div>
+
+                        <div class="order-number">
+                            Order #${order.id}
+                        </div>
+
+                        <div class="order-date">
+                            ${date}
+                        </div>
+
+                    </div>
+
+                    <span class="status ${statusClass}">
+                        ${status}
+                    </span>
+
+                </div>
+
+
+                <div class="order-body">
+
+                    <div class="items-title">
+                        Items
+                    </div>
+
+                    ${itemHTML}
+
+                </div>
+
+
+                <div class="order-footer">
+
+                    <div class="total">
+
+                        Order total
+
+                        <strong>
+                            ₹${formatMoney(order.totalAmount)}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+    }
+
+
+    function showEmptyOrders() {
+
+        ordersContainer.innerHTML = `
+
+            <div class="message">
+
+                <i class="fa-solid fa-box-open"></i>
+
+                <h2>No orders yet</h2>
+
+                <p>
+                    Your future purchases will appear here.
+                </p>
+
+                <a
+                    href="index.html"
+                    class="shop-btn">
+                    Start Shopping
+                </a>
+
+            </div>
+
+        `;
+    }
+
+
+    function formatDate(value) {
+
+        if (!value) {
+            return "Date unavailable";
+        }
+
+        const date =
+            new Date(value);
+
+        if (Number.isNaN(date.getTime())) {
+            return value;
+        }
+
+        return date.toLocaleDateString(
+            "en-IN",
+            {
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+            }
+        );
+    }
+
+
+    function formatMoney(value) {
+
+        return Number(value || 0)
+            .toLocaleString(
+                "en-IN",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+    }
+
+
+    function escapeHtml(value) {
+
+        return String(value || "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    loadOrders();
+
+</script>
+
+</body>
+</html>
