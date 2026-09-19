@@ -1,0 +1,96 @@
+package com.aarthi.mart.dao;
+
+import com.aarthi.mart.model.User;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class UserDAO extends BaseDAO {
+
+    public boolean register(User user) {
+
+        String sql = """
+                INSERT INTO users (name, email, password_hash, role)
+                VALUES (?, ?, ?, ?)
+                """;
+
+        try (
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+
+            statement.setString(1, user.getName());
+            statement.setString(2, user.getEmail());
+            statement.setString(3, user.getPasswordHash());
+            statement.setString(4, user.getRole());
+
+            return statement.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public User findByEmail(String email) {
+
+        String sql = """
+                SELECT id, name, email, password_hash, role
+                FROM users
+                WHERE email = ?
+                """;
+
+        try (
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+
+            statement.setString(1, email);
+
+            try (ResultSet result = statement.executeQuery()) {
+
+                if (result.next()) {
+
+                    return new User(
+                            result.getInt("id"),
+                            result.getString("name"),
+                            result.getString("email"),
+                            result.getString("password_hash"),
+                            result.getString("role")
+                    );
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public boolean emailExists(String email) {
+
+        String sql = """
+                SELECT id
+                FROM users
+                WHERE email = ?
+                """;
+
+        try (
+                Connection connection = getConnection();
+                PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+
+            statement.setString(1, email);
+
+            try (ResultSet result = statement.executeQuery()) {
+                return result.next();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+}

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Aarthi Mart</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Poppins", Arial, sans-serif;
+            background: #f8f1e7;
+            color: #3f2028;
+            min-height: 100vh;
+        }
+
+        header {
+            height: 80px;
+            background: #fffaf4;
+            border-bottom: 1px solid #e5d6ca;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+        }
+
+        .logo {
+            font-family: Georgia, serif;
+            font-size: 30px;
+            font-weight: bold;
+            color: #6f263d;
+            text-decoration: none;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #6f263d;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 55px auto;
+            padding: 0 25px;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .page-title h1 {
+            font-family: Georgia, serif;
+            font-size: 42px;
+            color: #5d2033;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #806b68;
+            font-size: 14px;
+        }
+
+        .account-card {
+            background: #fffaf4;
+            border: 1px solid #e5d6ca;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 8px 25px rgba(93, 32, 51, 0.06);
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid #eaded5;
+        }
+
+        .avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: #6f263d;
+            color: #fffaf4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Georgia, serif;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .profile h2 {
+            font-family: Georgia, serif;
+            font-size: 25px;
+            color: #5d2033;
+            margin-bottom: 5px;
+        }
+
+        .profile p {
+            color: #806b68;
+            font-size: 14px;
+        }
+
+        .details {
+            padding: 28px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .detail-box {
+            background: #f8f1e7;
+            border-radius: 12px;
+            padding: 18px;
+        }
+
+        .detail-box span {
+            display: block;
+            font-size: 12px;
+            color: #8c7470;
+            margin-bottom: 7px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-box strong {
+            color: #5d2033;
+            font-size: 15px;
+        }
+
+        .actions {
+            border-top: 1px solid #eaded5;
+            padding-top: 25px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .action-btn {
+            text-decoration: none;
+            text-align: center;
+            padding: 14px 10px;
+            border-radius: 10px;
+            background: #f2e4d8;
+            color: #6f263d;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #6f263d;
+            color: white;
+        }
+
+        .logout-btn {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            border: 1px solid #6f263d;
+            border-radius: 10px;
+            background: transparent;
+            color: #6f263d;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #6f263d;
+            color: white;
+        }
+
+        .message {
+            text-align: center;
+            padding: 40px;
+            color: #806b68;
+        }
+
+        @media (max-width: 650px) {
+            header {
+                padding: 0 5%;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            main {
+                margin: 35px auto;
+            }
+
+            .page-title h1 {
+                font-size: 34px;
+            }
+
+            .account-card {
+                padding: 25px 20px;
+            }
+
+            .details {
+                grid-template-columns: 1fr;
+            }
+
+            .actions {
+                grid-template-columns: 1fr;
+            }
+
+            .profile {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a href="index.html" class="back-btn">← Back</a>
+    <a href="index.html" class="logo">Aarthi Mart</a>
+    <div></div>
+</header>
+
+<main>
+
+    <div class="page-title">
+        <h1>My Account</h1>
+        <p>Manage your Aarthi Mart account</p>
+    </div>
+
+    <div class="account-card" id="accountCard">
+
+        <div class="message" id="loadingMessage">
+            Loading your account...
+        </div>
+
+    </div>
+
+</main>
+
+<script>
+
+async function loadAccount() {
+
+    const card = document.getElementById("accountCard");
+
+    try {
+
+        const response = await fetch("auth?action=me");
+
+        if (response.status === 401 || response.status === 403) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        const user = await response.json();
+
+        if (!user || !user.name) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        const firstLetter = user.name.charAt(0).toUpperCase();
+
+        card.innerHTML = `
+
+            <div class="profile">
+
+                <div class="avatar">
+                    ${escapeHtml(firstLetter)}
+                </div>
+
+                <div>
+                    <h2>${escapeHtml(user.name)}</h2>
+                    <p>${escapeHtml(user.email)}</p>
+                </div>
+
+            </div>
+
+            <div class="details">
+
+                <div class="detail-box">
+                    <span>Name</span>
+                    <strong>${escapeHtml(user.name)}</strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Email</span>
+                    <strong>${escapeHtml(user.email)}</strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Role</span>
+                    <strong>${escapeHtml(user.role || "BUYER")}</strong>
+                </div>
+
+                <div class="detail-box">
+                    <span>Account</span>
+                    <strong>Active</strong>
+                </div>
+
+            </div>
+
+            <div class="actions">
+
+                <a href="orders.html" class="action-btn">
+                    📦 My Orders
+                </a>
+
+                <a href="wishlist.html" class="action-btn">
+                    ♡ Wishlist
+                </a>
+
+                <a href="cart.html" class="action-btn">
+                    🛒 My Cart
+                </a>
+
+            </div>
+
+            <button class="logout-btn" onclick="logout()">
+                Log Out
+            </button>
+        `;
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        card.innerHTML = `
+            <div class="message">
+                Couldn't load your account.<br>
+                Please try again.
+            </div>
+        `;
+    }
+}
+
+
+async function logout() {
+
+    try {
+
+        await fetch("auth?action=logout", {
+            method: "POST"
+        });
+
+        window.location.href = "login.html";
+
+    } catch (error) {
+
+        console.error(error);
+        window.location.href = "login.html";
+
+    }
+}
+
+
+function escapeHtml(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+loadAccount();
+
+</script>
+
+</body>
+</html>
