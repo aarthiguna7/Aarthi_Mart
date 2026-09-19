@@ -9,6 +9,8 @@ public class OrderItem {
     private int productId;
     private int quantity;
     private BigDecimal price;
+    private String productName;
+    private String imageUrl;
 
     public OrderItem() {
     }
@@ -68,5 +70,21 @@ public class OrderItem {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
