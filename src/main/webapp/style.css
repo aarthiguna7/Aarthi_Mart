@@ -1169,4 +1169,52 @@ button {
         color: white;
         font-weight: 600;
     }
+
+    /* =========================================================
+   ADD TO CART BUTTON
+========================================================= */
+
+.add-cart-btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--burgundy);
+    border-radius: 3px;
+    background: white;
+    color: var(--burgundy);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    transition: all 0.25s ease;
+}
+
+.add-cart-btn:hover {
+    background: var(--burgundy);
+    color: white;
+}
+
+.add-cart-btn:active {
+    transform: scale(0.98);
+}
+
+.add-cart-btn:disabled {
+    cursor: wait;
+    opacity: 0.75;
+}
+
+.add-cart-btn.added {
+    background: var(--burgundy);
+    color: white;
+    border-color: var(--burgundy);
+}
+
+.add-cart-btn i {
+    font-size: 11px;
+}
+
 }
