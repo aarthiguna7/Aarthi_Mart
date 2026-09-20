@@ -39,6 +39,10 @@ public class ProductServlet extends HttpServlet {
 
             getByCategory(request, response);
 
+        } else if ("search".equals(action)) {
+
+            searchProducts(request, response);
+
         } else if ("mine".equals(action)) {
 
             getMyProducts(request, response);
@@ -217,6 +221,30 @@ public class ProductServlet extends HttpServlet {
 
         List<Product> products =
                 productDAO.getProductsByCategory(category);
+
+        sendProducts(response, products);
+    }
+
+    private void searchProducts(
+            HttpServletRequest request,
+            HttpServletResponse response)
+            throws IOException {
+
+        String keyword =
+                request.getParameter("keyword");
+
+        if (keyword == null ||
+                keyword.isBlank()) {
+
+            response.sendError(
+                    HttpServletResponse.SC_BAD_REQUEST,
+                    "Keyword is required"
+            );
+            return;
+        }
+
+        List<Product> products =
+                productDAO.searchProducts(keyword);
 
         sendProducts(response, products);
     }

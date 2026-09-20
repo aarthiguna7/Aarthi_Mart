@@ -10,27 +10,35 @@ import java.util.List;
 
 public class ProductDAO extends BaseDAO {
 
+    private static final String PRODUCT_SELECT = """
+            SELECT p.id, p.seller_id, p.name, p.description,
+                   p.price, p.stock_qty, p.category, p.image_url,
+                   COALESCE(AVG(r.rating), 0) AS rating,
+                   COUNT(r.id) AS review_count
+            FROM products p
+            LEFT JOIN reviews r
+                ON p.id = r.product_id
+            """;
+
     public List<Product> getAllProducts() {
 
         List<Product> products = new ArrayList<>();
 
-        String sql = """
-                SELECT id, seller_id, name, description,
-                       price, stock_qty, category, image_url
-                FROM products
-                ORDER BY id DESC
+        String sql = PRODUCT_SELECT + """
+                GROUP BY p.id, p.seller_id, p.name, p.description,
+                         p.price, p.stock_qty, p.category, p.image_url
+                ORDER BY p.id DESC
                 """;
 
         try (
                 Connection connection = getConnection();
                 PreparedStatement statement =
                         connection.prepareStatement(sql);
-                ResultSet result =
-                        statement.executeQuery()
+                ResultSet result = statement.executeQuery()
         ) {
 
             while (result.next()) {
-                products.add(mapProduct(result));
+                products.add(mapProductWithRating(result));
             }
 
         } catch (Exception e) {
@@ -44,12 +52,11 @@ public class ProductDAO extends BaseDAO {
 
         List<Product> products = new ArrayList<>();
 
-        String sql = """
-                SELECT id, seller_id, name, description,
-                       price, stock_qty, category, image_url
-                FROM products
-                WHERE seller_id = ?
-                ORDER BY id DESC
+        String sql = PRODUCT_SELECT + """
+                WHERE p.seller_id = ?
+                GROUP BY p.id, p.seller_id, p.name, p.description,
+                         p.price, p.stock_qty, p.category, p.image_url
+                ORDER BY p.id DESC
                 """;
 
         try (
@@ -60,11 +67,10 @@ public class ProductDAO extends BaseDAO {
 
             statement.setInt(1, sellerId);
 
-            try (ResultSet result =
-                         statement.executeQuery()) {
+            try (ResultSet result = statement.executeQuery()) {
 
                 while (result.next()) {
-                    products.add(mapProduct(result));
+                    products.add(mapProductWithRating(result));
                 }
             }
 
@@ -77,11 +83,10 @@ public class ProductDAO extends BaseDAO {
 
     public Product getProductById(int id) {
 
-        String sql = """
-                SELECT id, seller_id, name, description,
-                       price, stock_qty, category, image_url
-                FROM products
-                WHERE id = ?
+        String sql = PRODUCT_SELECT + """
+                WHERE p.id = ?
+                GROUP BY p.id, p.seller_id, p.name, p.description,
+                         p.price, p.stock_qty, p.category, p.image_url
                 """;
 
         try (
@@ -92,11 +97,10 @@ public class ProductDAO extends BaseDAO {
 
             statement.setInt(1, id);
 
-            try (ResultSet result =
-                         statement.executeQuery()) {
+            try (ResultSet result = statement.executeQuery()) {
 
                 if (result.next()) {
-                    return mapProduct(result);
+                    return mapProductWithRating(result);
                 }
             }
 
@@ -107,17 +111,15 @@ public class ProductDAO extends BaseDAO {
         return null;
     }
 
-    public List<Product> getProductsByCategory(
-            String category) {
+    public List<Product> getProductsByCategory(String category) {
 
         List<Product> products = new ArrayList<>();
 
-        String sql = """
-                SELECT id, seller_id, name, description,
-                       price, stock_qty, category, image_url
-                FROM products
-                WHERE category = ?
-                ORDER BY id DESC
+        String sql = PRODUCT_SELECT + """
+                WHERE LOWER(p.category) = LOWER(?)
+                GROUP BY p.id, p.seller_id, p.name, p.description,
+                         p.price, p.stock_qty, p.category, p.image_url
+                ORDER BY p.id DESC
                 """;
 
         try (
@@ -128,11 +130,50 @@ public class ProductDAO extends BaseDAO {
 
             statement.setString(1, category);
 
-            try (ResultSet result =
-                         statement.executeQuery()) {
+            try (ResultSet result = statement.executeQuery()) {
 
                 while (result.next()) {
-                    products.add(mapProduct(result));
+                    products.add(mapProductWithRating(result));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return products;
+    }
+
+    public List<Product> searchProducts(String keyword) {
+
+        List<Product> products = new ArrayList<>();
+
+        String sql = PRODUCT_SELECT + """
+                WHERE LOWER(p.name) LIKE ?
+                   OR LOWER(p.description) LIKE ?
+                   OR LOWER(p.category) LIKE ?
+                GROUP BY p.id, p.seller_id, p.name, p.description,
+                         p.price, p.stock_qty, p.category, p.image_url
+                ORDER BY p.id DESC
+                """;
+
+        try (
+                Connection connection = getConnection();
+                PreparedStatement statement =
+                        connection.prepareStatement(sql)
+        ) {
+
+            String searchPattern =
+                    "%" + keyword.trim().toLowerCase() + "%";
+
+            statement.setString(1, searchPattern);
+            statement.setString(2, searchPattern);
+            statement.setString(3, searchPattern);
+
+            try (ResultSet result = statement.executeQuery()) {
+
+                while (result.next()) {
+                    products.add(mapProductWithRating(result));
                 }
             }
 
@@ -209,9 +250,7 @@ public class ProductDAO extends BaseDAO {
         }
     }
 
-    public boolean updateProductBySeller(
-            Product product,
-            int sellerId) {
+    public boolean updateProductBySeller(Product product, int sellerId) {
 
         String sql = """
                 UPDATE products
@@ -271,9 +310,7 @@ public class ProductDAO extends BaseDAO {
         }
     }
 
-    public boolean deleteProductBySeller(
-            int id,
-            int sellerId) {
+    public boolean deleteProductBySeller(int id, int sellerId) {
 
         String sql = """
                 DELETE FROM products
@@ -298,9 +335,7 @@ public class ProductDAO extends BaseDAO {
         }
     }
 
-    public boolean reduceStock(
-            int productId,
-            int quantity) {
+    public boolean reduceStock(int productId, int quantity) {
 
         if (quantity <= 0) {
             return false;
@@ -331,10 +366,10 @@ public class ProductDAO extends BaseDAO {
         }
     }
 
-    private Product mapProduct(
-            ResultSet result) throws Exception {
+    private Product mapProductWithRating(ResultSet result)
+            throws Exception {
 
-        return new Product(
+        Product product = new Product(
                 result.getInt("id"),
                 result.getInt("seller_id"),
                 result.getString("name"),
@@ -344,5 +379,10 @@ public class ProductDAO extends BaseDAO {
                 result.getString("category"),
                 result.getString("image_url")
         );
+
+        product.setRating(result.getDouble("rating"));
+        product.setReviewCount(result.getInt("review_count"));
+
+        return product;
     }
 }

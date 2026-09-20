@@ -13,6 +13,10 @@ public class Product {
     private String category;
     private String imageUrl;
 
+    // Review information
+    private double rating;
+    private int reviewCount;
+
     public Product() {
     }
 
@@ -103,5 +107,21 @@ public class Product {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public int getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setReviewCount(int reviewCount) {
+        this.reviewCount = reviewCount;
     }
 }
