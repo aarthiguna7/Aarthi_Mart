@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,7 +11,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
 
@@ -55,6 +58,7 @@
         select {
             font-family: inherit;
         }
+
 
         /* ================= HEADER ================= */
 
@@ -114,6 +118,7 @@
             text-transform: uppercase;
         }
 
+
         /* ================= MAIN ================= */
 
         .dashboard {
@@ -122,7 +127,8 @@
             padding: 55px 0 80px;
         }
 
-        /* ================= PAGE HEADING ================= */
+
+        /* ================= HEADING ================= */
 
         .page-heading {
             display: flex;
@@ -172,6 +178,7 @@
             color: var(--burgundy);
         }
 
+
         /* ================= MESSAGE ================= */
 
         .message {
@@ -195,6 +202,7 @@
             background: #faeeee;
             border-color: #e5caca;
         }
+
 
         /* ================= STATS ================= */
 
@@ -254,6 +262,7 @@
             font-size: 10px;
         }
 
+
         /* ================= CONTENT ================= */
 
         .content-grid {
@@ -289,7 +298,8 @@
             letter-spacing: 0.5px;
         }
 
-        /* ================= PRODUCT LIST ================= */
+
+        /* ================= PRODUCTS ================= */
 
         .product-row {
             display: flex;
@@ -391,6 +401,93 @@
             font-size: 12px;
         }
 
+
+        /* ================= ORDERS ================= */
+
+        .orders-panel {
+            margin-top: 20px;
+        }
+
+        .order-row {
+            border-bottom: 1px solid var(--border);
+            padding: 18px 0;
+        }
+
+        .order-row:last-child {
+            border-bottom: none;
+        }
+
+        .order-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+        }
+
+        .order-number {
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .order-date {
+            color: var(--muted);
+            font-size: 10px;
+            margin-top: 4px;
+        }
+
+        .order-amount {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .order-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .status-select {
+            border: 1px solid var(--border);
+            background: var(--cream);
+            padding: 8px 10px;
+            font-size: 10px;
+            color: var(--text);
+            outline: none;
+        }
+
+        .status-select:focus {
+            border-color: var(--burgundy);
+        }
+
+        .view-order-button {
+            border: 1px solid var(--border);
+            background: var(--warm-white);
+            padding: 8px 12px;
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+
+        .view-order-button:hover {
+            border-color: var(--burgundy);
+            color: var(--burgundy);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 9px;
+            background: var(--rose-light);
+            color: var(--burgundy);
+            font-size: 8px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+        }
+
+
         /* ================= QUICK ACTIONS ================= */
 
         .action-grid {
@@ -438,6 +535,7 @@
             line-height: 1.4;
         }
 
+
         /* ================= NOTICE ================= */
 
         .notice {
@@ -466,6 +564,7 @@
             line-height: 1.7;
         }
 
+
         /* ================= MODAL ================= */
 
         .modal {
@@ -486,6 +585,8 @@
 
         .modal-box {
             width: min(600px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
             background: var(--warm-white);
             border: 1px solid var(--border);
             padding: 35px;
@@ -526,6 +627,7 @@
             border-color: var(--burgundy);
             color: var(--burgundy);
         }
+
 
         /* ================= FORM ================= */
 
@@ -611,6 +713,63 @@
             background: var(--burgundy-dark);
         }
 
+
+        /* ================= ORDER DETAILS ================= */
+
+        .order-details-list {
+            margin-top: 10px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+
+        .detail-image {
+            width: 55px;
+            height: 62px;
+            background: var(--beige);
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .detail-image.placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--burgundy);
+            font-size: 8px;
+            font-weight: 700;
+        }
+
+        .detail-info {
+            flex: 1;
+        }
+
+        .detail-name {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .detail-meta {
+            font-size: 10px;
+            color: var(--muted);
+            margin-top: 5px;
+        }
+
+        .detail-total {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+
         /* ================= RESPONSIVE ================= */
 
         @media (max-width: 900px) {
@@ -627,8 +786,8 @@
             .content-grid {
                 grid-template-columns: 1fr;
             }
-
         }
+
 
         @media (max-width: 600px) {
 
@@ -694,8 +853,8 @@
             .product-actions {
                 flex-direction: column;
             }
-
         }
+
 
         @media (max-width: 430px) {
 
@@ -732,856 +891,1577 @@
                 padding: 25px 20px;
             }
 
+            .order-bottom {
+                align-items: flex-start;
+                flex-direction: column;
+            }
         }
 
     </style>
+
 </head>
+
 
 <body>
 
-    <!-- ================= HEADER ================= -->
 
-    <header class="header">
+<header class="header">
 
-        <div class="header-inner">
+    <div class="header-inner">
 
-            <a href="index.html" class="logo">
-                <img
-                    src="https://i.postimg.cc/QNp2QnXQ/Whats-App-Image-2026-09-14-at-10-27-23-AM.jpg"
-                    alt="Aarthi Mart">
+        <a href="index.html" class="logo">
+
+            <img
+                src="https://i.postimg.cc/QNp2QnXQ/Whats-App-Image-2026-09-14-at-10-27-23-AM.jpg"
+                alt="Aarthi Mart">
+
+        </a>
+
+        <div class="header-right">
+
+            <span class="seller-label">
+                Seller
+            </span>
+
+            <a href="index.html" class="store-link">
+                ← Back to store
             </a>
 
-            <div class="header-right">
+        </div>
 
-                <span class="seller-label">
-                    Seller
-                </span>
+    </div>
 
-                <a href="index.html" class="store-link">
-                    ← Back to store
+</header>
+
+
+
+<main class="dashboard">
+
+
+    <div class="page-heading">
+
+        <div>
+
+            <p class="eyebrow">
+                SELLER SPACE
+            </p>
+
+            <h1>
+                Your store.
+            </h1>
+
+            <p class="description">
+                Manage your products, orders and marketplace activity.
+            </p>
+
+        </div>
+
+        <button
+            class="logout-button"
+            onclick="logout()">
+
+            Log out
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="message"
+        class="message">
+    </div>
+
+
+
+    <!-- ================= STATS ================= -->
+
+    <section class="stats">
+
+
+        <div class="stat-card">
+
+            <span>
+                Products
+            </span>
+
+            <strong id="productCount">
+                0
+            </strong>
+
+            <small>
+                Active listings
+            </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                Orders
+            </span>
+
+            <strong id="orderCount">
+                0
+            </strong>
+
+            <small>
+                Orders received
+            </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                Revenue
+            </span>
+
+            <strong id="revenue">
+                ₹0
+            </strong>
+
+            <small>
+                From your products
+            </small>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span>
+                Rating
+            </span>
+
+            <strong id="sellerRating">
+                —
+            </strong>
+
+            <small>
+                Customer rating
+            </small>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <section class="content-grid">
+
+
+        <!-- ================= PRODUCTS ================= -->
+
+        <div class="panel">
+
+            <div class="panel-heading">
+
+                <h2>
+                    Your products
+                </h2>
+
+                <a
+                    href="#"
+                    onclick="openAddModal(); return false;">
+
+                    Add product →
+
                 </a>
 
             </div>
 
-        </div>
 
-    </header>
+            <div id="products">
 
-
-    <!-- ================= DASHBOARD ================= -->
-
-    <main class="dashboard">
-
-        <div class="page-heading">
-
-            <div>
-
-                <p class="eyebrow">
-                    SELLER SPACE
-                </p>
-
-                <h1>
-                    Your store.
-                </h1>
-
-                <p class="description">
-                    Manage your products, orders and marketplace activity.
-                </p>
+                <div class="empty-state">
+                    Loading products...
+                </div>
 
             </div>
-
-            <button
-                class="logout-button"
-                onclick="logout()">
-                Log out
-            </button>
 
         </div>
 
 
-        <div id="message" class="message"></div>
 
+        <!-- ================= RIGHT ================= -->
 
-        <!-- ================= STATS ================= -->
+        <div>
 
-        <section class="stats">
-
-            <div class="stat-card">
-
-                <span>
-                    Products
-                </span>
-
-                <strong id="productCount">
-                    0
-                </strong>
-
-                <small>
-                    Active listings
-                </small>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <span>
-                    Orders
-                </span>
-
-                <strong>
-                    0
-                </strong>
-
-                <small>
-                    This month
-                </small>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <span>
-                    Revenue
-                </span>
-
-                <strong>
-                    ₹0
-                </strong>
-
-                <small>
-                    This month
-                </small>
-
-            </div>
-
-
-            <div class="stat-card">
-
-                <span>
-                    Rating
-                </span>
-
-                <strong>
-                    4.8
-                </strong>
-
-                <small>
-                    Customer rating
-                </small>
-
-            </div>
-
-        </section>
-
-
-        <!-- ================= CONTENT ================= -->
-
-        <section class="content-grid">
-
-
-            <!-- ================= PRODUCTS ================= -->
 
             <div class="panel">
 
                 <div class="panel-heading">
 
                     <h2>
-                        Your products
+                        Quick actions
                     </h2>
-
-                    <a href="#" onclick="openAddModal(); return false;">
-                        Add product →
-                    </a>
 
                 </div>
 
 
-                <div id="products">
+                <div class="action-grid">
 
-                    <div class="empty-state">
-                        Loading products...
-                    </div>
+
+                    <a
+                        href="#"
+                        class="action-card"
+                        onclick="openAddModal(); return false;">
+
+                        <span class="action-number">
+                            01
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Add product
+                            </strong>
+
+                            <span>
+                                Create a new listing
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <a
+                        href="#"
+                        class="action-card"
+                        onclick="loadProducts(); return false;">
+
+                        <span class="action-number">
+                            02
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                Manage products
+                            </strong>
+
+                            <span>
+                                Refresh your listings
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <a
+                        href="index.html"
+                        class="action-card">
+
+                        <span class="action-number">
+                            03
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                View store
+                            </strong>
+
+                            <span>
+                                See your marketplace
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <a
+                        href="#ordersSection"
+                        class="action-card">
+
+                        <span class="action-number">
+                            04
+                        </span>
+
+                        <div>
+
+                            <strong>
+                                View orders
+                            </strong>
+
+                            <span>
+                                Manage customer orders
+                            </span>
+
+                        </div>
+
+                    </a>
+
 
                 </div>
 
             </div>
 
 
-            <!-- ================= RIGHT SIDE ================= -->
+
+            <div class="notice">
+
+                <p class="eyebrow">
+                    AARTHI MART
+                </p>
+
+                <h3>
+                    Build a store people remember.
+                </h3>
+
+                <p>
+                    Keep your products fresh, your descriptions clear,
+                    and give customers something worth coming back for.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ================= ORDERS ================= -->
+
+    <section
+        class="panel orders-panel"
+        id="ordersSection">
+
+        <div class="panel-heading">
+
+            <h2>
+                Your orders
+            </h2>
+
+            <a
+                href="#"
+                onclick="loadOrders(); return false;">
+
+                Refresh →
+
+            </a>
+
+        </div>
+
+
+        <div id="orders">
+
+            <div class="empty-state">
+                Loading orders...
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- ================= PRODUCT MODAL ================= -->
+
+<div
+    id="productModal"
+    class="modal">
+
+    <div class="modal-box">
+
+
+        <div class="modal-heading">
 
             <div>
 
+                <p id="modalEyebrow">
+                    NEW LISTING
+                </p>
 
-                <!-- QUICK ACTIONS -->
-
-                <div class="panel">
-
-                    <div class="panel-heading">
-
-                        <h2>
-                            Quick actions
-                        </h2>
-
-                    </div>
-
-
-                    <div class="action-grid">
-
-                        <a href="#"
-                           class="action-card"
-                           onclick="openAddModal(); return false;">
-
-                            <span class="action-number">
-                                01
-                            </span>
-
-                            <div>
-
-                                <strong>
-                                    Add product
-                                </strong>
-
-                                <span>
-                                    Create a new listing
-                                </span>
-
-                            </div>
-
-                        </a>
-
-
-                        <a href="#"
-                           class="action-card"
-                           onclick="loadProducts(); return false;">
-
-                            <span class="action-number">
-                                02
-                            </span>
-
-                            <div>
-
-                                <strong>
-                                    Manage products
-                                </strong>
-
-                                <span>
-                                    Refresh your listings
-                                </span>
-
-                            </div>
-
-                        </a>
-
-
-                        <a href="index.html"
-                           class="action-card">
-
-                            <span class="action-number">
-                                03
-                            </span>
-
-                            <div>
-
-                                <strong>
-                                    View store
-                                </strong>
-
-                                <span>
-                                    See your marketplace
-                                </span>
-
-                            </div>
-
-                        </a>
-
-
-                        <a href="#"
-                           class="action-card"
-                           onclick="showMessage('Store settings are coming soon.', 'success'); return false;">
-
-                            <span class="action-number">
-                                04
-                            </span>
-
-                            <div>
-
-                                <strong>
-                                    Store settings
-                                </strong>
-
-                                <span>
-                                    Manage your store
-                                </span>
-
-                            </div>
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-
-                <!-- NOTICE -->
-
-                <div class="notice">
-
-                    <p class="eyebrow">
-                        AARTHI MART
-                    </p>
-
-                    <h3>
-                        Build a store people remember.
-                    </h3>
-
-                    <p>
-                        Keep your products fresh, your descriptions clear,
-                        and give customers something worth coming back for.
-                    </p>
-
-                </div>
+                <h2 id="modalTitle">
+                    Add product.
+                </h2>
 
             </div>
 
-        </section>
 
-    </main>
+            <button
+                class="close-button"
+                onclick="closeModal()">
+
+                ×
+
+            </button>
+
+        </div>
 
 
-    <!-- ================= ADD PRODUCT MODAL ================= -->
 
-    <div
-        id="productModal"
-        class="modal">
+        <form
+            id="productForm"
+            method="POST"
+            action="products">
 
-        <div class="modal-box">
 
-            <div class="modal-heading">
+            <input
+                type="hidden"
+                name="action"
+                id="formAction"
+                value="add">
 
-                <div>
 
-                    <p>
-                        NEW LISTING
-                    </p>
+            <input
+                type="hidden"
+                name="id"
+                id="productId">
 
-                    <h2>
-                        Add product.
-                    </h2>
+
+            <div class="form-grid">
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Product name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="productName"
+                        name="name"
+                        placeholder="e.g. Classic White Sneakers"
+                        required>
 
                 </div>
 
+
+                <div class="form-group">
+
+                    <label>
+                        Price
+                    </label>
+
+                    <input
+                        type="number"
+                        id="productPrice"
+                        name="price"
+                        min="0"
+                        step="0.01"
+                        placeholder="1499"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Stock quantity
+                    </label>
+
+                    <input
+                        type="number"
+                        id="productStock"
+                        name="stockQty"
+                        min="0"
+                        placeholder="20"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Category
+                    </label>
+
+                    <select
+                        id="productCategory"
+                        name="category"
+                        required>
+
+                        <option value="">
+                            Select category
+                        </option>
+
+                        <option value="tops">
+                            Tops
+                        </option>
+
+                        <option value="dresses">
+                            Dresses
+                        </option>
+
+                        <option value="denim">
+                            Denim
+                        </option>
+
+                        <option value="footwear">
+                            Footwear
+                        </option>
+
+                        <option value="trousers">
+                            Trousers
+                        </option>
+
+                        <option value="handbags">
+                            Handbags
+                        </option>
+
+                        <option value="coords">
+                            Co-ords
+                        </option>
+
+                        <option value="skirts">
+                            Skirts
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Image URL
+                    </label>
+
+                    <input
+                        type="url"
+                        id="productImage"
+                        name="imageUrl"
+                        placeholder="https://...">
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea
+                        id="productDescription"
+                        name="description"
+                        placeholder="Tell customers a little about this product..."></textarea>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="form-footer">
+
                 <button
-                    class="close-button"
+                    type="button"
+                    class="cancel-button"
                     onclick="closeModal()">
-                    ×
+
+                    Cancel
+
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                    id="submitButton">
+
+                    Add product
+
                 </button>
 
             </div>
 
 
-            <form
-                id="productForm"
-                method="POST"
-                action="products">
-
-                <input
-                    type="hidden"
-                    name="action"
-                    value="add">
-
-
-                <div class="form-grid">
-
-
-                    <div class="form-group full">
-
-                        <label for="productName">
-                            Product name
-                        </label>
-
-                        <input
-                            type="text"
-                            id="productName"
-                            name="name"
-                            placeholder="e.g. Classic White Sneakers"
-                            required>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="productPrice">
-                            Price
-                        </label>
-
-                        <input
-                            type="number"
-                            id="productPrice"
-                            name="price"
-                            min="0"
-                            step="0.01"
-                            placeholder="1499"
-                            required>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="productStock">
-                            Stock quantity
-                        </label>
-
-                        <input
-                            type="number"
-                            id="productStock"
-                            name="stockQty"
-                            min="0"
-                            placeholder="20"
-                            required>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="productCategory">
-                            Category
-                        </label>
-
-                        <select
-                            id="productCategory"
-                            name="category"
-                            required>
-
-                            <option value="">
-                                Select category
-                            </option>
-
-                            <option value="tops">
-                                Tops
-                            </option>
-
-                            <option value="dresses">
-                                Dresses
-                            </option>
-
-                            <option value="denim">
-                                Denim
-                            </option>
-
-                            <option value="footwear">
-                                Footwear
-                            </option>
-
-                            <option value="trousers">
-                                Trousers
-                            </option>
-
-                            <option value="handbags">
-                                Handbags
-                            </option>
-
-                            <option value="coords">
-                                Co-ords
-                            </option>
-
-                            <option value="skirts">
-                                Skirts
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="productImage">
-                            Image URL
-                        </label>
-
-                        <input
-                            type="url"
-                            id="productImage"
-                            name="imageUrl"
-                            placeholder="https://...">
-
-                    </div>
-
-
-                    <div class="form-group full">
-
-                        <label for="productDescription">
-                            Description
-                        </label>
-
-                        <textarea
-                            id="productDescription"
-                            name="description"
-                            placeholder="Tell customers a little about this product..."></textarea>
-
-                    </div>
-
-
-                </div>
-
-
-                <div class="form-footer">
-
-                    <button
-                        type="button"
-                        class="cancel-button"
-                        onclick="closeModal()">
-                        Cancel
-                    </button>
-
-                    <button
-                        type="submit"
-                        class="submit-button">
-                        Add product
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
+        </form>
 
     </div>
 
+</div>
 
-    <script>
 
-        /* ================= MODAL ================= */
 
-        function openAddModal() {
+<!-- ================= ORDER DETAILS MODAL ================= -->
 
-            document
-                .getElementById("productModal")
-                .classList.add("show");
+<div
+    id="orderModal"
+    class="modal">
 
+    <div class="modal-box">
+
+
+        <div class="modal-heading">
+
+            <div>
+
+                <p>
+                    ORDER DETAILS
+                </p>
+
+                <h2 id="orderModalTitle">
+                    Order
+                </h2>
+
+            </div>
+
+
+            <button
+                class="close-button"
+                onclick="closeOrderModal()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <div id="orderDetails">
+
+            <div class="empty-state">
+                Loading...
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+/* ================= MODAL ================= */
+
+function openAddModal() {
+
+    document.getElementById("modalEyebrow")
+        .textContent = "NEW LISTING";
+
+    document.getElementById("modalTitle")
+        .textContent = "Add product.";
+
+    document.getElementById("formAction")
+        .value = "add";
+
+    document.getElementById("productId")
+        .value = "";
+
+    document.getElementById("submitButton")
+        .textContent = "Add product";
+
+    document.getElementById("productForm")
+        .reset();
+
+    document.getElementById("productModal")
+        .classList.add("show");
+}
+
+
+function openEditModal(id) {
+
+    fetch(
+        "products?action=get&id=" +
+        encodeURIComponent(id)
+    )
+    .then(function(response) {
+
+        if (!response.ok) {
+            throw new Error("Could not load product");
         }
 
+        return response.json();
 
-        function closeModal() {
+    })
+    .then(function(product) {
 
-            document
-                .getElementById("productModal")
-                .classList.remove("show");
+        document.getElementById("modalEyebrow")
+            .textContent = "EDIT LISTING";
 
+        document.getElementById("modalTitle")
+            .textContent = "Edit product.";
+
+        document.getElementById("formAction")
+            .value = "update";
+
+        document.getElementById("productId")
+            .value = product.id;
+
+        document.getElementById("productName")
+            .value = product.name || "";
+
+        document.getElementById("productPrice")
+            .value = product.price || "";
+
+        document.getElementById("productStock")
+            .value = product.stockQty || 0;
+
+        document.getElementById("productCategory")
+            .value = product.category || "";
+
+        document.getElementById("productImage")
+            .value = product.imageUrl || "";
+
+        document.getElementById("productDescription")
+            .value = product.description || "";
+
+        document.getElementById("submitButton")
+            .textContent = "Save changes";
+
+        document.getElementById("productModal")
+            .classList.add("show");
+
+    })
+    .catch(function() {
+
+        showMessage(
+            "Could not load the product.",
+            "error"
+        );
+
+    });
+}
+
+
+function closeModal() {
+
+    document.getElementById("productModal")
+        .classList.remove("show");
+}
+
+
+function closeOrderModal() {
+
+    document.getElementById("orderModal")
+        .classList.remove("show");
+}
+
+
+document.getElementById("productModal")
+    .addEventListener("click", function(event) {
+
+        if (event.target === this) {
+            closeModal();
         }
 
-
-        /* Close when clicking outside */
-
-        document
-            .getElementById("productModal")
-            .addEventListener("click", function (event) {
-
-                if (event.target === this) {
-                    closeModal();
-                }
-
-            });
+    });
 
 
-        /* ================= MESSAGE ================= */
+document.getElementById("orderModal")
+    .addEventListener("click", function(event) {
 
-        function showMessage(text, type) {
-
-            const message =
-                document.getElementById("message");
-
-            message.textContent = text;
-
-            message.className =
-                "message " + type;
-
+        if (event.target === this) {
+            closeOrderModal();
         }
 
-
-        /* ================= LOAD PRODUCTS ================= */
-
-        function loadProducts() {
-
-            fetch("products?action=mine")
-                .then(function (response) {
-
-                    if (!response.ok) {
-                        throw new Error("Could not load products");
-                    }
-
-                    return response.json();
-
-                })
-                .then(function (products) {
-
-                    const container =
-                        document.getElementById("products");
-
-                    const count =
-                        document.getElementById("productCount");
+    });
 
 
-                    count.textContent =
-                        products.length;
+
+/* ================= MESSAGE ================= */
+
+function showMessage(text, type) {
+
+    const message =
+        document.getElementById("message");
+
+    message.textContent = text;
+
+    message.className =
+        "message " + type;
+
+}
 
 
-                    if (!products.length) {
 
-                        container.innerHTML = `
-                            <div class="empty-state">
-                                No products yet. Add your first product.
-                            </div>
-                        `;
+/* ================= PRODUCTS ================= */
 
-                        return;
-                    }
+function loadProducts() {
 
+    fetch("products?action=mine")
 
-                    container.innerHTML =
-                        products.map(function (product) {
+        .then(function(response) {
 
-                            const image =
-                                product.imageUrl
-                                    ? `
-                                        <img
-                                            src="${escapeHtml(product.imageUrl)}"
-                                            alt="${escapeHtml(product.name)}"
-                                            onerror="this.parentElement.innerHTML='<span class=\\'product-image placeholder\\'>ITEM</span>'">
-                                      `
-                                    : "";
+            if (!response.ok) {
+                throw new Error("Could not load products");
+            }
 
+            return response.json();
 
-                            return `
-                                <div class="product-row">
+        })
 
-                                    <div class="product-info">
+        .then(function(products) {
 
-                                        <div class="product-image ${product.imageUrl ? "" : "placeholder"}">
+            const container =
+                document.getElementById("products");
 
-                                            ${
-                                                image ||
-                                                "ITEM"
-                                            }
-
-                                        </div>
-
-                                        <div>
-
-                                            <div class="product-name">
-                                                ${escapeHtml(product.name)}
-                                            </div>
-
-                                            <div class="product-category">
-                                                ${escapeHtml(product.category)}
-                                                · Stock ${product.stockQty}
-                                            </div>
-
-                                        </div>
-
-                                    </div>
+            document.getElementById("productCount")
+                .textContent = products.length;
 
 
-                                    <div class="product-price">
-                                        ₹${Number(product.price).toLocaleString("en-IN")}
-                                    </div>
+            if (!products.length) {
 
+                container.innerHTML = `
+                    <div class="empty-state">
+                        No products yet. Add your first product.
+                    </div>
+                `;
 
-                                    <div class="product-actions">
-
-                                        <button
-                                            class="small-button delete"
-                                            onclick="deleteProduct(${product.id})">
-                                            Delete
-                                        </button>
-
-                                    </div>
-
-                                </div>
-                            `;
-
-                        }).join("");
-
-                })
-                .catch(function (error) {
-
-                    console.error(error);
-
-                    document.getElementById("products").innerHTML = `
-                        <div class="empty-state">
-                            Unable to load products.
-                        </div>
-                    `;
-
-                });
-
-        }
-
-
-        /* ================= DELETE PRODUCT ================= */
-
-        function deleteProduct(id) {
-
-            const confirmed =
-                confirm("Delete this product?");
-
-
-            if (!confirmed) {
                 return;
             }
 
 
-            fetch(
-                "products?action=delete&id=" + encodeURIComponent(id),
-                {
-                    method: "POST"
-                }
-            )
-            .then(function (response) {
+            container.innerHTML =
+                products.map(function(product) {
+
+                    const image =
+                        product.imageUrl
+                            ? `
+                                <img
+                                    src="${escapeHtml(product.imageUrl)}"
+                                    alt="${escapeHtml(product.name)}"
+                                    onerror="this.parentElement.innerHTML='<span class=&quot;product-image placeholder&quot;>ITEM</span>'">
+                              `
+                            : "ITEM";
+
+
+                    return `
+                        <div class="product-row">
+
+                            <div class="product-info">
+
+                                <div class="product-image ${
+                                    product.imageUrl
+                                        ? ""
+                                        : "placeholder"
+                                }">
+
+                                    ${image}
+
+                                </div>
+
+
+                                <div>
+
+                                    <div class="product-name">
+                                        ${escapeHtml(product.name)}
+                                    </div>
+
+                                    <div class="product-category">
+                                        ${escapeHtml(product.category)}
+                                        · Stock ${product.stockQty}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="product-price">
+                                ₹${Number(product.price)
+                                    .toLocaleString("en-IN")}
+                            </div>
+
+
+                            <div class="product-actions">
+
+                                <button
+                                    class="small-button"
+                                    onclick="openEditModal(${product.id})">
+
+                                    Edit
+
+                                </button>
+
+
+                                <button
+                                    class="small-button delete"
+                                    onclick="deleteProduct(${product.id})">
+
+                                    Delete
+
+                                </button>
+
+                            </div>
+
+                        </div>
+                    `;
+
+                }).join("");
+
+        })
+
+        .catch(function(error) {
+
+            console.error(error);
+
+            document.getElementById("products").innerHTML = `
+                <div class="empty-state">
+                    Unable to load products.
+                </div>
+            `;
+
+        });
+}
+
+
+
+/* ================= DELETE ================= */
+
+function deleteProduct(id) {
+
+    if (!confirm("Delete this product?")) {
+        return;
+    }
+
+
+    fetch(
+        "products?action=delete&id=" +
+        encodeURIComponent(id),
+        {
+            method: "POST"
+        }
+    )
+
+    .then(function(response) {
+
+        if (!response.ok) {
+            throw new Error("Delete failed");
+        }
+
+        showMessage(
+            "Product deleted successfully.",
+            "success"
+        );
+
+        loadProducts();
+        loadStats();
+
+    })
+
+    .catch(function() {
+
+        showMessage(
+            "Could not delete the product.",
+            "error"
+        );
+
+    });
+}
+
+
+
+/* ================= STATS ================= */
+
+function loadStats() {
+
+    Promise.all([
+
+        fetch("orders?action=seller-stats")
+            .then(function(response) {
 
                 if (!response.ok) {
-                    throw new Error("Delete failed");
+                    throw new Error("Could not load stats");
                 }
 
+                return response.json();
 
-                showMessage(
-                    "Product deleted successfully.",
-                    "success"
-                );
+            }),
 
+        fetch("products?action=mine")
+            .then(function(response) {
 
-                loadProducts();
+                if (!response.ok) {
+                    throw new Error("Could not load products");
+                }
+
+                return response.json();
 
             })
-            .catch(function () {
 
-                showMessage(
-                    "Could not delete the product.",
-                    "error"
-                );
+    ])
 
-            });
+    .then(function(results) {
+
+        const stats = results[0];
+        const products = results[1];
+
+
+        /* ================= BASIC STATS ================= */
+
+        document.getElementById("productCount")
+            .textContent = stats.productCount;
+
+        document.getElementById("orderCount")
+            .textContent = stats.orderCount;
+
+        document.getElementById("revenue")
+            .textContent =
+                "₹" +
+                Number(stats.revenue)
+                    .toLocaleString("en-IN");
+
+
+        /* ================= SELLER RATING ================= */
+
+        let totalRatingPoints = 0;
+        let totalReviews = 0;
+
+
+        products.forEach(function(product) {
+
+            const rating =
+                Number(product.rating || 0);
+
+            const reviewCount =
+                Number(product.reviewCount || 0);
+
+
+            totalRatingPoints +=
+                rating * reviewCount;
+
+            totalReviews +=
+                reviewCount;
+
+        });
+
+
+        const sellerRating =
+            document.getElementById("sellerRating");
+
+
+        if (totalReviews > 0) {
+
+            const averageRating =
+                totalRatingPoints / totalReviews;
+
+
+            sellerRating.textContent =
+                averageRating.toFixed(1);
+
+        } else {
+
+            sellerRating.textContent =
+                "—";
 
         }
 
+    })
 
-        /* ================= HTML ESCAPE ================= */
+    .catch(function(error) {
 
-        function escapeHtml(value) {
+        console.error(error);
 
-            if (
-                value === null ||
-                value === undefined
-            ) {
-                return "";
+    });
+}
+
+
+
+/* ================= ORDERS ================= */
+
+function loadOrders() {
+
+    fetch("orders")
+
+        .then(function(response) {
+
+            if (!response.ok) {
+                throw new Error("Could not load orders");
+            }
+
+            return response.json();
+
+        })
+
+        .then(function(orders) {
+
+            const container =
+                document.getElementById("orders");
+
+
+            if (!orders.length) {
+
+                container.innerHTML = `
+                    <div class="empty-state">
+                        No orders yet.
+                    </div>
+                `;
+
+                return;
             }
 
 
-            return String(value)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
+            container.innerHTML =
+                orders.map(function(order) {
 
+                    const date =
+                        formatDate(order.createdAt);
+
+
+                    return `
+                        <div class="order-row">
+
+                            <div class="order-top">
+
+                                <div>
+
+                                    <div class="order-number">
+                                        Order #${order.id}
+                                    </div>
+
+                                    <div class="order-date">
+                                        ${date}
+                                    </div>
+
+                                </div>
+
+
+                                <div class="order-amount">
+                                    ₹${Number(order.totalAmount)
+                                        .toLocaleString("en-IN")}
+                                </div>
+
+                            </div>
+
+
+                            <div class="order-bottom">
+
+                                <select
+                                    class="status-select"
+                                    id="status-${order.id}"
+                                    onchange="updateOrderStatus(${order.id}, this.value)">
+
+                                    ${statusOption(
+                                        "PENDING",
+                                        order.status
+                                    )}
+
+                                    ${statusOption(
+                                        "CONFIRMED",
+                                        order.status
+                                    )}
+
+                                    ${statusOption(
+                                        "SHIPPED",
+                                        order.status
+                                    )}
+
+                                    ${statusOption(
+                                        "DELIVERED",
+                                        order.status
+                                    )}
+
+                                    ${statusOption(
+                                        "CANCELLED",
+                                        order.status
+                                    )}
+
+                                </select>
+
+
+                                <button
+                                    class="view-order-button"
+                                    onclick="viewOrder(${order.id})">
+
+                                    View details
+
+                                </button>
+
+                            </div>
+
+                        </div>
+                    `;
+
+                }).join("");
+
+        })
+
+        .catch(function(error) {
+
+            console.error(error);
+
+            document.getElementById("orders").innerHTML = `
+                <div class="empty-state">
+                    Unable to load orders.
+                </div>
+            `;
+
+        });
+}
+
+
+
+/* ================= STATUS ================= */
+
+function statusOption(status, current) {
+
+    return `
+        <option
+            value="${status}"
+            ${status === current ? "selected" : ""}>
+
+            ${status}
+
+        </option>
+    `;
+}
+
+
+function updateOrderStatus(orderId, status) {
+
+    const body =
+        "action=status" +
+        "&orderId=" +
+        encodeURIComponent(orderId) +
+        "&status=" +
+        encodeURIComponent(status);
+
+
+    fetch("orders", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type":
+                "application/x-www-form-urlencoded"
+        },
+
+        body: body
+
+    })
+
+    .then(function(response) {
+
+        if (!response.ok) {
+            throw new Error("Status update failed");
+        }
+
+        return response.json();
+
+    })
+
+    .then(function(result) {
+
+        if (!result.success) {
+            throw new Error("Status update failed");
+        }
+
+        showMessage(
+            "Order status updated successfully.",
+            "success"
+        );
+
+        loadStats();
+
+    })
+
+    .catch(function() {
+
+        showMessage(
+            "Could not update order status.",
+            "error"
+        );
+
+        loadOrders();
+
+    });
+}
+
+
+
+/* ================= ORDER DETAILS ================= */
+
+function viewOrder(orderId) {
+
+    document.getElementById("orderModalTitle")
+        .textContent =
+            "Order #" + orderId;
+
+
+    document.getElementById("orderDetails")
+        .innerHTML = `
+            <div class="empty-state">
+                Loading order details...
+            </div>
+        `;
+
+
+    document.getElementById("orderModal")
+        .classList.add("show");
+
+
+    fetch(
+        "orders?action=items&orderId=" +
+        encodeURIComponent(orderId)
+    )
+
+    .then(function(response) {
+
+        if (!response.ok) {
+            throw new Error("Could not load order");
+        }
+
+        return response.json();
+
+    })
+
+    .then(function(items) {
+
+        const container =
+            document.getElementById("orderDetails");
+
+
+        if (!items.length) {
+
+            container.innerHTML = `
+                <div class="empty-state">
+                    No products found for this order.
+                </div>
+            `;
+
+            return;
         }
 
 
-        /* ================= LOGOUT ================= */
+        container.innerHTML =
+            `<div class="order-details-list">` +
 
-        function logout() {
+            items.map(function(item) {
 
-            fetch("auth", {
-                method: "POST",
-                headers: {
-                    "Content-Type":
-                        "application/x-www-form-urlencoded"
-                },
-                body: "action=logout"
-            })
-            .then(function (response) {
+                const subtotal =
+                    Number(item.price) *
+                    Number(item.quantity);
 
-                if (response.redirected) {
 
-                    window.location.href =
-                        response.url;
+                const image =
+                    item.imageUrl
+                        ? `
+                            <img
+                                class="detail-image"
+                                src="${escapeHtml(item.imageUrl)}"
+                                alt="${escapeHtml(item.productName)}">
+                          `
+                        : `
+                            <div class="detail-image placeholder">
+                                ITEM
+                            </div>
+                          `;
 
-                } else {
 
-                    window.location.href =
-                        "login.html";
+                return `
+                    <div class="detail-item">
 
-                }
+                        ${image}
 
-            })
-            .catch(function () {
+                        <div class="detail-info">
 
-                window.location.href =
-                    "login.html";
+                            <div class="detail-name">
+                                ${escapeHtml(item.productName)}
+                            </div>
 
-            });
+                            <div class="detail-meta">
+                                Qty ${item.quantity}
+                                · ₹${Number(item.price)
+                                    .toLocaleString("en-IN")} each
+                            </div>
+
+                        </div>
+
+                        <div class="detail-total">
+                            ₹${subtotal
+                                .toLocaleString("en-IN")}
+                        </div>
+
+                    </div>
+                `;
+
+            }).join("") +
+
+            `</div>`;
+
+    })
+
+    .catch(function() {
+
+        document.getElementById("orderDetails")
+            .innerHTML = `
+                <div class="empty-state">
+                    Unable to load order details.
+                </div>
+            `;
+
+    });
+}
+
+
+
+/* ================= DATE ================= */
+
+function formatDate(value) {
+
+    if (!value) {
+        return "Date unavailable";
+    }
+
+
+    const date =
+        new Date(value);
+
+
+    if (isNaN(date.getTime())) {
+        return value;
+    }
+
+
+    return date.toLocaleString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+}
+
+
+
+/* ================= ESCAPE ================= */
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return "";
+    }
+
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+
+/* ================= LOGOUT ================= */
+
+function logout() {
+
+    fetch("auth", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type":
+                "application/x-www-form-urlencoded"
+        },
+
+        body: "action=logout"
+
+    })
+
+    .then(function(response) {
+
+        if (response.redirected) {
+
+            window.location.href =
+                response.url;
+
+        } else {
+
+            window.location.href =
+                "login.html";
 
         }
 
+    })
 
-        /* ================= INITIAL LOAD ================= */
+    .catch(function() {
 
-        loadProducts();
+        window.location.href =
+            "login.html";
 
-
-        /* ================= URL MESSAGE ================= */
-
-        const params =
-            new URLSearchParams(
-                window.location.search
-            );
+    });
+}
 
 
-        if (params.get("success") === "added") {
 
-            showMessage(
-                "Product added successfully.",
-                "success"
-            );
+/* ================= INITIAL LOAD ================= */
 
-        }
+loadProducts();
+loadOrders();
+loadStats();
 
 
-        if (params.get("success") === "updated") {
 
-            showMessage(
-                "Product updated successfully.",
-                "success"
-            );
+/* ================= URL MESSAGE ================= */
 
-        }
-
-
-        if (params.get("success") === "deleted") {
-
-            showMessage(
-                "Product deleted successfully.",
-                "success"
-            );
-
-        }
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
 
 
-        if (params.get("error")) {
+if (params.get("success") === "added") {
 
-            showMessage(
-                "Something went wrong while saving the product.",
-                "error"
-            );
+    showMessage(
+        "Product added successfully.",
+        "success"
+    );
+}
 
-        }
 
-    </script>
+if (params.get("success") === "updated") {
+
+    showMessage(
+        "Product updated successfully.",
+        "success"
+    );
+}
+
+
+if (params.get("success") === "deleted") {
+
+    showMessage(
+        "Product deleted successfully.",
+        "success"
+    );
+}
+
+
+if (params.get("error")) {
+
+    showMessage(
+        "Something went wrong while saving the product.",
+        "error"
+    );
+}
+
+</script>
+
 
 </body>
 
