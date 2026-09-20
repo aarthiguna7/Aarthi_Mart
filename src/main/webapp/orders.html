@@ -152,6 +152,11 @@
             color: #43577d;
         }
 
+        .status.confirmed {
+            background: #eee4f3;
+            color: #704b80;
+        }
+
         .order-body {
             padding: 20px 22px;
         }
@@ -166,7 +171,7 @@
 
         .order-item {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
 
             padding: 12px 0;
@@ -219,6 +224,109 @@
             font-weight: 600;
             color: #6f2939;
             white-space: nowrap;
+        }
+
+        .review-box {
+            margin-top: 15px;
+            padding: 17px;
+            background: #fff8f0;
+            border: 1px solid #eadfd2;
+            border-radius: 10px;
+        }
+
+        .review-title {
+            font-family: "Playfair Display", serif;
+            font-size: 17px;
+            color: #6f2939;
+            margin-bottom: 10px;
+        }
+
+        .stars {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 12px;
+        }
+
+        .star {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+
+            font-size: 25px;
+            line-height: 1;
+
+            color: #d7c4c8;
+            padding: 0;
+        }
+
+        .star:hover,
+        .star.active {
+            color: #c59635;
+        }
+
+        .review-comment {
+            width: 100%;
+            min-height: 80px;
+
+            resize: vertical;
+
+            border: 1px solid #dfd0c5;
+            border-radius: 7px;
+
+            background: #fffdf9;
+
+            padding: 10px 12px;
+
+            font-family: "Poppins", sans-serif;
+            font-size: 12px;
+            color: #4a2630;
+
+            outline: none;
+        }
+
+        .review-comment:focus {
+            border-color: #9a5364;
+        }
+
+        .review-submit {
+            margin-top: 10px;
+
+            border: none;
+            border-radius: 7px;
+
+            padding: 10px 17px;
+
+            background: #6f2939;
+            color: white;
+
+            font-family: "Poppins", sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+
+            cursor: pointer;
+        }
+
+        .review-submit:hover {
+            background: #54202c;
+        }
+
+        .review-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .review-done {
+            margin-top: 12px;
+
+            padding: 12px;
+
+            background: #e4f0df;
+            color: #48623d;
+
+            border-radius: 7px;
+
+            font-size: 12px;
+            font-weight: 500;
         }
 
         .order-footer {
@@ -315,6 +423,10 @@
                 padding-left: 16px;
                 padding-right: 16px;
             }
+
+            .order-item {
+                gap: 10px;
+            }
         }
 
     </style>
@@ -367,6 +479,8 @@
 
     const ordersContainer =
         document.getElementById("ordersContainer");
+
+    const selectedRatings = {};
 
 
     async function loadOrders() {
@@ -500,42 +614,141 @@
         const itemHTML =
             items.length > 0
 
-                ? items.map(item => `
+                ? items.map((item, index) => {
+
+                    const reviewId =
+                        "review_" +
+                        order.id +
+                        "_" +
+                        item.productId +
+                        "_" +
+                        index;
+
+                    return `
 
                     <div class="order-item">
 
-                        <div class="item-left">
+                        <div style="width:100%;">
 
-                            <div class="item-icon">
+                            <div style="
+                                display:flex;
+                                align-items:flex-start;
+                                justify-content:space-between;
+                                gap:15px;
+                            ">
 
-                                <i class="fa-solid fa-shirt"></i>
+                                <div class="item-left">
+
+                                    <div class="item-icon">
+
+                                        <i class="fa-solid fa-shirt"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <div class="item-name">
+                                            ${escapeHtml(
+                                                item.productName ||
+                                                "Product #" + item.productId
+                                            )}
+                                        </div>
+
+                                        <div class="item-quantity">
+                                            Quantity: ${item.quantity}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="item-price">
+                                    &#8377;${formatMoney(item.price)}
+                                </div>
 
                             </div>
 
-                            <div>
+                            ${
+                                status === "DELIVERED"
+                                ? `
 
-                                <div class="item-name">
-                                    ${escapeHtml(
-                                        item.productName ||
-                                        "Product #" + item.productId
-                                    )}
+                                <div
+                                    class="review-box"
+                                    id="${reviewId}"
+                                >
+
+                                    <div class="review-title">
+                                        How was this product?
+                                    </div>
+
+                                    <div class="stars">
+
+                                        <button
+                                            type="button"
+                                            class="star"
+                                            onclick="selectRating('${reviewId}', 1)">
+                                            &#9733;
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="star"
+                                            onclick="selectRating('${reviewId}', 2)">
+                                            &#9733;
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="star"
+                                            onclick="selectRating('${reviewId}', 3)">
+                                            &#9733;
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="star"
+                                            onclick="selectRating('${reviewId}', 4)">
+                                            &#9733;
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="star"
+                                            onclick="selectRating('${reviewId}', 5)">
+                                            &#9733;
+                                        </button>
+
+                                    </div>
+
+                                    <textarea
+                                        class="review-comment"
+                                        id="${reviewId}_comment"
+                                        maxlength="1000"
+                                        placeholder="Write a short review..."></textarea>
+
+                                    <button
+                                        type="button"
+                                        class="review-submit"
+                                        onclick="submitReview(
+                                            ${item.productId},
+                                            '${reviewId}'
+                                        )">
+                                        Submit Review
+                                    </button>
+
                                 </div>
 
-                                <div class="item-quantity">
-                                    Quantity: ${item.quantity}
-                                </div>
+                                `
+                                : ""
+                            }
 
-                            </div>
-
-                        </div>
-
-                        <div class="item-price">
-                            ₹${formatMoney(item.price)}
                         </div>
 
                     </div>
 
-                `).join("")
+                    `;
+
+                }).join("")
 
                 : `
 
@@ -548,15 +761,19 @@
                             </div>
 
                             <div>
+
                                 <div class="item-name">
                                     Order items
                                 </div>
+
                             </div>
 
                         </div>
 
                     </div>
+
                 `;
+
 
         return `
 
@@ -601,7 +818,7 @@
                         Order total
 
                         <strong>
-                            ₹${formatMoney(order.totalAmount)}
+                            &#8377;${formatMoney(order.totalAmount)}
                         </strong>
 
                     </div>
@@ -611,6 +828,155 @@
             </div>
 
         `;
+    }
+
+
+    function selectRating(
+        reviewId,
+        rating
+    ) {
+
+        selectedRatings[reviewId] =
+            rating;
+
+        const reviewBox =
+            document.getElementById(reviewId);
+
+        if (!reviewBox) {
+            return;
+        }
+
+        const stars =
+            reviewBox.querySelectorAll(".star");
+
+        stars.forEach(
+            (star, index) => {
+
+                star.classList.toggle(
+                    "active",
+                    index < rating
+                );
+
+            }
+        );
+    }
+
+
+    async function submitReview(
+        productId,
+        reviewId
+    ) {
+
+        const rating =
+            selectedRatings[reviewId];
+
+        if (!rating) {
+
+            alert(
+                "Please select a star rating first."
+            );
+
+            return;
+        }
+
+        const reviewBox =
+            document.getElementById(reviewId);
+
+        if (!reviewBox) {
+            return;
+        }
+
+        const commentBox =
+            document.getElementById(
+                reviewId + "_comment"
+            );
+
+        const comment =
+            commentBox
+                ? commentBox.value.trim()
+                : "";
+
+        const button =
+            reviewBox.querySelector(
+                ".review-submit"
+            );
+
+        button.disabled = true;
+        button.textContent =
+            "Submitting...";
+
+        try {
+
+            const body =
+                new URLSearchParams();
+
+            body.append(
+                "productId",
+                productId
+            );
+
+            body.append(
+                "rating",
+                rating
+            );
+
+            body.append(
+                "comment",
+                comment
+            );
+
+            const response =
+                await fetch(
+                    "reviews",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/x-www-form-urlencoded"
+                        },
+
+                        body: body.toString()
+                    }
+                );
+
+            const result =
+                await response.json();
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.error ||
+                    "Could not submit review"
+                );
+            }
+
+            reviewBox.innerHTML = `
+
+                <div class="review-done">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    Thank you! Your review has been submitted.
+
+                </div>
+
+            `;
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                error.message ||
+                "Could not submit review."
+            );
+
+            button.disabled = false;
+
+            button.textContent =
+                "Submit Review";
+        }
     }
 
 
