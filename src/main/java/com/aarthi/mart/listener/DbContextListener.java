@@ -1,6 +1,8 @@
 package com.aarthi.mart.listener;
 
 import com.aarthi.mart.util.DBUtil;
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -13,13 +15,36 @@ import java.sql.Statement;
 @WebListener
 public class DbContextListener implements ServletContextListener {
 
+    private HikariDataSource dataSource;
+
     @Override
     public void contextInitialized(ServletContextEvent event) {
 
-        try (Connection connection = DBUtil.getConnection()) {
+        try {
+            HikariConfig config = new HikariConfig();
 
-            executeSqlFile(connection, "schema.sql");
-            executeSqlFile(connection, "seed.sql");
+            config.setJdbcUrl(DBUtil.getDatabaseUrl());
+            config.setUsername(DBUtil.getDatabaseUsername());
+            config.setPassword(DBUtil.getDatabasePassword());
+
+            config.setMaximumPoolSize(10);
+            config.setMinimumIdle(2);
+            config.setConnectionTimeout(10000);
+
+            dataSource = new HikariDataSource(config);
+
+            DBUtil.setDataSource(dataSource);
+
+            try (Connection connection = dataSource.getConnection()) {
+
+                executeSqlFile(connection, "schema.sql");
+                executeSqlFile(connection, "seed.sql");
+            }
+
+            event.getServletContext().setAttribute(
+                    "dataSource",
+                    dataSource
+            );
 
             System.out.println(
                     "========== AARTHI MART DATABASE INITIALIZED =========="
@@ -32,6 +57,27 @@ public class DbContextListener implements ServletContextListener {
             );
 
             e.printStackTrace();
+
+            if (dataSource != null) {
+                dataSource.close();
+            }
+
+            throw new RuntimeException(
+                    "Failed to initialize database connection pool",
+                    e
+            );
+        }
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent event) {
+
+        if (dataSource != null && !dataSource.isClosed()) {
+            dataSource.close();
+
+            System.out.println(
+                    "========== AARTHI MART DATABASE POOL CLOSED =========="
+            );
         }
     }
 
@@ -54,10 +100,6 @@ public class DbContextListener implements ServletContextListener {
                     StandardCharsets.UTF_8
             );
 
-            /*
-             * Remove SQL comment lines before
-             * splitting the file into commands.
-             */
             StringBuilder cleanedSql = new StringBuilder();
 
             for (String line : sql.split("\\R")) {

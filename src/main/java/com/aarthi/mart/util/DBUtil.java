@@ -1,15 +1,18 @@
 package com.aarthi.mart.util;
 
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.util.Properties;
 
 public class DBUtil {
 
-    private static final String URL;
-    private static final String USERNAME;
-    private static final String PASSWORD;
+    private static String URL;
+    private static String USERNAME;
+    private static String PASSWORD;
+
+    private static HikariDataSource dataSource;
 
     static {
         try {
@@ -28,11 +31,16 @@ public class DBUtil {
                 properties.load(input);
             }
 
-            URL = getConfig("DB_URL", properties.getProperty("db.url"));
+            URL = getConfig(
+                    "DB_URL",
+                    properties.getProperty("db.url")
+            );
+
             USERNAME = getConfig(
                     "DB_USERNAME",
                     properties.getProperty("db.username")
             );
+
             PASSWORD = getConfig(
                     "DB_PASSWORD",
                     properties.getProperty("db.password")
@@ -59,17 +67,40 @@ public class DBUtil {
 
         if (environmentValue != null
                 && !environmentValue.isBlank()) {
+
             return environmentValue;
         }
 
         return propertyValue;
     }
 
-    public static Connection getConnection() throws Exception {
-        return DriverManager.getConnection(
-                URL,
-                USERNAME,
-                PASSWORD
-        );
+    public static String getDatabaseUrl() {
+        return URL;
+    }
+
+    public static String getDatabaseUsername() {
+        return USERNAME;
+    }
+
+    public static String getDatabasePassword() {
+        return PASSWORD;
+    }
+
+    public static void setDataSource(
+            HikariDataSource source) {
+
+        dataSource = source;
+    }
+
+    public static Connection getConnection()
+            throws Exception {
+
+        if (dataSource == null) {
+            throw new IllegalStateException(
+                    "Database connection pool is not initialized"
+            );
+        }
+
+        return dataSource.getConnection();
     }
 }
