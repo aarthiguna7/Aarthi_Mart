@@ -13,10 +13,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet("/orders")
 public class OrderServlet extends HttpServlet {
@@ -45,6 +49,7 @@ public class OrderServlet extends HttpServlet {
                 .create();
     }
 
+
     @Override
     protected void doGet(
             HttpServletRequest request,
@@ -67,16 +72,29 @@ public class OrderServlet extends HttpServlet {
         int userId =
                 (Integer) session.getAttribute("userId");
 
+        String role =
+                (String) session.getAttribute("role");
+
         String action =
                 request.getParameter("action");
 
-        /*
-         * GET /orders?action=items&orderId=1
-         */
-        if ("items".equals(action)) {
 
-            getOrderItems(
-                    request,
+        /*
+         * Seller dashboard statistics.
+         */
+        if ("seller-stats".equals(action)) {
+
+            if (!"SELLER".equals(role) &&
+                    !"ADMIN".equals(role)) {
+
+                response.sendError(
+                        HttpServletResponse.SC_FORBIDDEN,
+                        "Seller or admin access required"
+                );
+                return;
+            }
+
+            sendSellerStats(
                     response,
                     userId
             );
@@ -84,24 +102,98 @@ public class OrderServlet extends HttpServlet {
             return;
         }
 
+
         /*
-         * GET /orders
+         * Order items.
          */
-        List<Order> orders =
-                orderDAO.getOrdersByUser(userId);
+        if ("items".equals(action)) {
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+            getOrderItems(
+                    request,
+                    response,
+                    userId,
+                    role
+            );
 
-        response.getWriter().write(
-                gson.toJson(orders)
-        );
+            return;
+        }
+
+
+        /*
+         * Default:
+         *
+         * SELLER → seller orders
+         * BUYER  → customer's orders
+         * ADMIN  → all orders
+         */
+        List<Order> orders;
+
+        if ("SELLER".equals(role)) {
+
+            orders =
+                    orderDAO.getOrdersBySeller(userId);
+
+        } else if ("ADMIN".equals(role)) {
+
+            orders =
+                    orderDAO.getAllOrders();
+
+        } else {
+
+            orders =
+                    orderDAO.getOrdersByUser(userId);
+        }
+
+
+        sendJson(response, orders);
     }
+
+
+    private void sendSellerStats(
+            HttpServletResponse response,
+            int sellerId)
+            throws IOException {
+
+        int productCount =
+                new com.aarthi.mart.dao.ProductDAO()
+                        .getProductsBySeller(sellerId)
+                        .size();
+
+        int orderCount =
+                orderDAO.getSellerOrderCount(sellerId);
+
+        BigDecimal revenue =
+                orderDAO.getSellerRevenue(sellerId);
+
+
+        Map<String, Object> stats =
+                new HashMap<>();
+
+        stats.put(
+                "productCount",
+                productCount
+        );
+
+        stats.put(
+                "orderCount",
+                orderCount
+        );
+
+        stats.put(
+                "revenue",
+                revenue
+        );
+
+
+        sendJson(response, stats);
+    }
+
 
     private void getOrderItems(
             HttpServletRequest request,
             HttpServletResponse response,
-            int userId)
+            int userId,
+            String role)
             throws IOException {
 
         String orderIdParameter =
@@ -117,6 +209,7 @@ public class OrderServlet extends HttpServlet {
             return;
         }
 
+
         try {
 
             int orderId =
@@ -131,41 +224,79 @@ public class OrderServlet extends HttpServlet {
                 return;
             }
 
+
+            List<OrderItem> items;
+
+
             /*
-             * Make sure this order belongs to
-             * the currently logged-in user.
+             * SELLER
+             *
+             * Only return products belonging
+             * to this seller.
              */
-            List<Order> userOrders =
-                    orderDAO.getOrdersByUser(userId);
+            if ("SELLER".equals(role)) {
 
-            boolean ownsOrder = false;
+                if (!orderDAO.sellerOwnsOrder(
+                        orderId,
+                        userId)) {
 
-            for (Order order : userOrders) {
-
-                if (order.getId() == orderId) {
-                    ownsOrder = true;
-                    break;
+                    response.sendError(
+                            HttpServletResponse.SC_FORBIDDEN,
+                            "You cannot view this order"
+                    );
+                    return;
                 }
+
+                items =
+                        orderDAO.getOrderItemsBySeller(
+                                orderId,
+                                userId
+                        );
+
+
+            /*
+             * ADMIN
+             */
+            } else if ("ADMIN".equals(role)) {
+
+                items =
+                        orderDAO.getOrderItems(orderId);
+
+
+            /*
+             * BUYER
+             */
+            } else {
+
+                List<Order> userOrders =
+                        orderDAO.getOrdersByUser(userId);
+
+                boolean ownsOrder = false;
+
+                for (Order order : userOrders) {
+
+                    if (order.getId() == orderId) {
+                        ownsOrder = true;
+                        break;
+                    }
+                }
+
+                if (!ownsOrder) {
+
+                    response.sendError(
+                            HttpServletResponse.SC_FORBIDDEN,
+                            "You cannot view this order"
+                    );
+                    return;
+                }
+
+                items =
+                        orderDAO.getOrderItems(orderId);
             }
 
-            if (!ownsOrder) {
 
-                response.sendError(
-                        HttpServletResponse.SC_FORBIDDEN,
-                        "You cannot view this order"
-                );
-                return;
-            }
+            sendJson(response, items);
 
-            List<OrderItem> items =
-                    orderDAO.getOrderItems(orderId);
-
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-
-            response.getWriter().write(
-                    gson.toJson(items)
-            );
 
         } catch (NumberFormatException e) {
 
@@ -175,6 +306,7 @@ public class OrderServlet extends HttpServlet {
             );
         }
     }
+
 
     @Override
     protected void doPost(
@@ -201,13 +333,23 @@ public class OrderServlet extends HttpServlet {
         String action =
                 request.getParameter("action");
 
+
         if ("checkout".equals(action)) {
 
-            checkout(userId, response);
+            checkout(
+                    userId,
+                    response
+            );
+
 
         } else if ("status".equals(action)) {
 
-            updateStatus(request, response, session);
+            updateStatus(
+                    request,
+                    response,
+                    session
+            );
+
 
         } else {
 
@@ -218,6 +360,7 @@ public class OrderServlet extends HttpServlet {
         }
     }
 
+
     private void checkout(
             int userId,
             HttpServletResponse response)
@@ -226,7 +369,10 @@ public class OrderServlet extends HttpServlet {
         int orderId =
                 orderService.checkout(userId);
 
-        response.setContentType("application/json");
+        response.setContentType(
+                "application/json"
+        );
+
         response.setCharacterEncoding("UTF-8");
 
         if (orderId == -1) {
@@ -245,6 +391,7 @@ public class OrderServlet extends HttpServlet {
         }
     }
 
+
     private void updateStatus(
             HttpServletRequest request,
             HttpServletResponse response,
@@ -254,20 +401,27 @@ public class OrderServlet extends HttpServlet {
         String role =
                 (String) session.getAttribute("role");
 
-        if (!"ADMIN".equals(role)) {
+        int userId =
+                (Integer) session.getAttribute("userId");
+
+
+        if (!"ADMIN".equals(role) &&
+                !"SELLER".equals(role)) {
 
             response.sendError(
                     HttpServletResponse.SC_FORBIDDEN,
-                    "Only admin can update order status"
+                    "Seller or admin access required"
             );
             return;
         }
+
 
         String orderIdParameter =
                 request.getParameter("orderId");
 
         String status =
                 request.getParameter("status");
+
 
         if (orderIdParameter == null ||
                 status == null ||
@@ -280,6 +434,11 @@ public class OrderServlet extends HttpServlet {
             return;
         }
 
+
+        status =
+                status.trim().toUpperCase();
+
+
         if (!isValidStatus(status)) {
 
             response.sendError(
@@ -289,25 +448,39 @@ public class OrderServlet extends HttpServlet {
             return;
         }
 
+
         try {
 
             int orderId =
                     Integer.parseInt(orderIdParameter);
 
-            boolean updated =
-                    orderDAO.updateOrderStatus(
-                            orderId,
-                            status
-                    );
+            boolean updated;
 
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
 
-            response.getWriter().write(
-                    "{\"success\":" +
-                            updated +
-                            "}"
+            if ("ADMIN".equals(role)) {
+
+                updated =
+                        orderDAO.updateOrderStatus(
+                                orderId,
+                                status
+                        );
+
+            } else {
+
+                updated =
+                        orderDAO.updateOrderStatusBySeller(
+                                orderId,
+                                userId,
+                                status
+                        );
+            }
+
+
+            sendJson(
+                    response,
+                    new SuccessResponse(updated)
             );
+
 
         } catch (NumberFormatException e) {
 
@@ -318,12 +491,45 @@ public class OrderServlet extends HttpServlet {
         }
     }
 
-    private boolean isValidStatus(String status) {
+
+    private boolean isValidStatus(
+            String status) {
 
         return "PENDING".equals(status) ||
                 "CONFIRMED".equals(status) ||
                 "SHIPPED".equals(status) ||
                 "DELIVERED".equals(status) ||
                 "CANCELLED".equals(status);
+    }
+
+
+    private void sendJson(
+            HttpServletResponse response,
+            Object data)
+            throws IOException {
+
+        response.setContentType(
+                "application/json"
+        );
+
+        response.setCharacterEncoding(
+                "UTF-8"
+        );
+
+        response.getWriter().write(
+                gson.toJson(data)
+        );
+    }
+
+
+    private static class SuccessResponse {
+
+        private final boolean success;
+
+        private SuccessResponse(
+                boolean success) {
+
+            this.success = success;
+        }
     }
 }
