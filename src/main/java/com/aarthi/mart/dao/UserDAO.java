@@ -5,6 +5,8 @@ import com.aarthi.mart.model.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO extends BaseDAO {
 
@@ -93,4 +95,40 @@ public class UserDAO extends BaseDAO {
             return false;
         }
     }
+    public List<User> getAllUsers() {
+
+    List<User> users = new ArrayList<>();
+
+    String sql = """
+            SELECT id, name, email, role
+            FROM users
+            ORDER BY id
+            """;
+
+    try (
+            Connection connection = getConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement(sql);
+            ResultSet result = statement.executeQuery()
+    ) {
+
+        while (result.next()) {
+
+            User user = new User(
+                    result.getInt("id"),
+                    result.getString("name"),
+                    result.getString("email"),
+                    null,
+                    result.getString("role")
+            );
+
+            users.add(user);
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+
+    return users;
+}
 }

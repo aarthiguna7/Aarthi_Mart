@@ -32,26 +32,30 @@ public class AuthServlet extends HttpServlet {
     // Used by the home page to check login status
     // --------------------------------------------------
 
-    @Override
-    protected void doGet(
-            HttpServletRequest request,
-            HttpServletResponse response)
-            throws ServletException, IOException {
+   @Override
+protected void doGet(
+        HttpServletRequest request,
+        HttpServletResponse response)
+        throws ServletException, IOException {
 
-        String action = request.getParameter("action");
+    String action = request.getParameter("action");
 
-        if ("me".equals(action)) {
+    if ("me".equals(action)) {
 
-            getCurrentUser(request, response);
+        getCurrentUser(request, response);
 
-        } else {
+    } else if ("logout".equals(action)) {
 
-            response.sendError(
-                    HttpServletResponse.SC_BAD_REQUEST,
-                    "Invalid action"
-            );
-        }
+        logout(request, response);
+
+    } else {
+
+        response.sendError(
+                HttpServletResponse.SC_BAD_REQUEST,
+                "Invalid action"
+        );
     }
+}
 
     private void getCurrentUser(
             HttpServletRequest request,
@@ -295,18 +299,24 @@ public class AuthServlet extends HttpServlet {
                 user.getRole()
         );
 
-        if ("SELLER".equals(user.getRole())) {
+        if ("ADMIN".equalsIgnoreCase(user.getRole())) {
 
-            response.sendRedirect(
-                    "seller.html"
-            );
+    response.sendRedirect(
+            "admin.html"
+    );
 
-        } else {
+} else if ("SELLER".equalsIgnoreCase(user.getRole())) {
 
-            response.sendRedirect(
-                    "index.html"
-            );
-        }
+    response.sendRedirect(
+            "seller.html"
+    );
+
+} else {
+
+    response.sendRedirect(
+            "index.html"
+    );
+}
     }
 
     private void logout(
