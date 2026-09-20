@@ -28,9 +28,15 @@ public class DBUtil {
                 properties.load(input);
             }
 
-            URL = properties.getProperty("db.url");
-            USERNAME = properties.getProperty("db.username");
-            PASSWORD = properties.getProperty("db.password");
+            URL = getConfig("DB_URL", properties.getProperty("db.url"));
+            USERNAME = getConfig(
+                    "DB_USERNAME",
+                    properties.getProperty("db.username")
+            );
+            PASSWORD = getConfig(
+                    "DB_PASSWORD",
+                    properties.getProperty("db.password")
+            );
 
             Class.forName(
                     properties.getProperty("db.driver")
@@ -42,6 +48,21 @@ public class DBUtil {
                     e
             );
         }
+    }
+
+    private static String getConfig(
+            String environmentVariable,
+            String propertyValue) {
+
+        String environmentValue =
+                System.getenv(environmentVariable);
+
+        if (environmentValue != null
+                && !environmentValue.isBlank()) {
+            return environmentValue;
+        }
+
+        return propertyValue;
     }
 
     public static Connection getConnection() throws Exception {
