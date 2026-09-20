@@ -792,13 +792,15 @@ document.addEventListener("DOMContentLoaded", () => {
                                     0
                                 ),
 
-                            rating:
-                                oldProduct?.rating ??
-                                null,
+                          rating:
+    backendProduct.rating != null
+        ? Number(backendProduct.rating)
+        : null,
 
-                            reviews:
-                                oldProduct?.reviews ??
-                                0,
+reviews:
+    backendProduct.reviewCount != null
+        ? Number(backendProduct.reviewCount)
+        : 0,
 
                             badge:
                                 oldProduct?.badge ??
