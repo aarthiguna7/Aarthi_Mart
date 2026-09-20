@@ -4,3 +4,5 @@ target/
 .idea/
 .vscode/
 *.iml
+
+src/main/resources/db.properties
