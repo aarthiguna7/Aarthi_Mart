@@ -2574,6 +2574,37 @@ if (currentCollection === "rechecked") {
 
         /* ================= LOGGED IN ================= */
 
+       const role = String(user?.role || "").trim().toUpperCase();
+document.querySelectorAll('a[href="seller.html"]').forEach(link => {
+    link.style.display = "";
+
+    if (link.dataset.roleCheckAdded === "true") return;
+    link.dataset.roleCheckAdded = "true";
+
+    link.addEventListener("click", async event => {
+        event.preventDefault();
+
+        try {
+            const response = await fetch("auth?action=me", {
+                credentials: "same-origin"
+            });
+            const current = response.ok ? await response.json() : { loggedIn: false };
+            const accountRole = String(current.role || "").trim().toUpperCase();
+
+            if (current.loggedIn !== true) {
+                window.location.href = "login.html";
+            } else if (accountRole === "SELLER") {
+                window.location.href = "seller.html";
+            } else if (accountRole === "ADMIN") {
+                window.location.href = "admin.html";
+            } else {
+                alert("To sell on Aarthi Mart, please register or sign in with a seller account.");
+            }
+        } catch (error) {
+            alert("Couldn't verify your account. Please try again.");
+        }
+    });
+});
         if (
             user &&
             user.loggedIn
@@ -2648,17 +2679,12 @@ if (currentCollection === "rechecked") {
                         </span>
 
                     </a>
-
-
-                    <a href="seller.html">
-
-                        <i class="fa-solid fa-store"></i>
-
-                        <span>
-                            Sell on Aarthi Mart
-                        </span>
-
-                    </a>
+${["SELLER", "ADMIN"].includes(role) ? `
+    <a href="seller.html">
+        <i class="fa-solid fa-store"></i>
+        <span>Sell on Aarthi Mart</span>
+    </a>
+` : ""}
 
                 `;
             }
@@ -2775,15 +2801,13 @@ if (currentCollection === "rechecked") {
                     </a>
 
 
-                    <a href="seller.html">
-
-                        <i class="fa-solid fa-store"></i>
-
-                        <span>
-                            Sell on Aarthi Mart
-                        </span>
-
-                    </a>
+                   ${String(user.role || "").toUpperCase() === "SELLER" ||
+  String(user.role || "").toUpperCase() === "ADMIN" ? `
+    <a href="seller.html">
+        <i class="fa-solid fa-store"></i>
+        <span>Sell on Aarthi Mart</span>
+    </a>
+` : ""}
 
                 `;
             }

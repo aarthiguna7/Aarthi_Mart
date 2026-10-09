@@ -2411,9 +2411,35 @@ function logout() {
 
 /* ================= INITIAL LOAD ================= */
 
-loadProducts();
-loadOrders();
-loadStats();
+(async function protectSellerDashboard() {
+    try {
+        const response = await fetch("auth?action=me", {
+            credentials: "same-origin"
+        });
+
+        const current = response.ok
+            ? await response.json()
+            : { loggedIn: false };
+
+        const role = String(current.role || "").trim().toUpperCase();
+
+        if (current.loggedIn !== true) {
+            window.location.replace("login.html");
+            return;
+        }
+
+        if (role !== "SELLER") {
+            window.location.replace(role === "ADMIN" ? "admin.html" : "index.html");
+            return;
+        }
+
+        loadProducts();
+        loadOrders();
+        loadStats();
+    } catch (error) {
+        window.location.replace("login.html");
+    }
+})();
 
 
 

@@ -1,0 +1,132 @@
+﻿#aarthi-ai #ai-launcher {
+    position: fixed !important;
+    right: 24px !important;
+    bottom: 24px !important;
+    width: 64px !important;
+    height: 64px !important;
+    min-width: 64px !important;
+    min-height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+    aspect-ratio: 1 / 1 !important;
+    padding: 5px !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    border: 2px solid #f7f5f3 !important;
+    border-radius: 50% !important;
+    background: #580c1f !important;
+    box-shadow: 0 5px 20px #0003 !important;
+    cursor: pointer !important;
+    z-index: 10000 !important;
+    box-sizing: border-box !important;
+}
+#aarthi-ai #ai-launcher img {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+}
+#aarthi-ai #ai-panel {
+    position: fixed;
+    right: 24px;
+    bottom: 100px;
+    width: min(360px, calc(100vw - 32px));
+    height: 450px;
+    max-height: calc(100dvh - 125px);
+    background: #fff;
+    border: 1px solid #eadfe1;
+    border-radius: 18px;
+    box-shadow: 0 12px 40px #0002;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 9999;
+    box-sizing: border-box;
+}
+#aarthi-ai #ai-panel[hidden] {
+    display: none !important;
+}
+#aarthi-ai .ai-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    color: white;
+    background: #580c1f;
+}
+#aarthi-ai .ai-header p {
+    margin: 4px 0 0;
+    font-size: 12px;
+}
+#aarthi-ai #ai-close {
+    border: 0;
+    background: transparent;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+}
+#aarthi-ai #ai-messages {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+#aarthi-ai .ai-message {
+    max-width: 85%;
+    padding: 10px 12px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+#aarthi-ai .ai-bot {
+    align-self: flex-start;
+    background: #f7f0f1;
+    color: #35151d;
+}
+#aarthi-ai .ai-user {
+    align-self: flex-end;
+    background: #580c1f;
+    color: white;
+}
+#aarthi-ai #ai-form {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid #eee;
+}
+#aarthi-ai #ai-input {
+    min-width: 0;
+    flex: 1;
+    padding: 11px;
+    border: 1px solid #ddd;
+    border-radius: 22px;
+    font: inherit;
+}
+#aarthi-ai #ai-send {
+    width: 42px;
+    min-width: 42px;
+    border: 0;
+    border-radius: 50%;
+    background: #580c1f;
+    color: white;
+    cursor: pointer;
+}
+@media (max-width: 480px) {
+    #aarthi-ai #ai-launcher {
+        right: 16px !important;
+        bottom: 16px !important;
+    }
+    #aarthi-ai #ai-panel {
+        right: 12px;
+        bottom: 88px;
+    }
+}

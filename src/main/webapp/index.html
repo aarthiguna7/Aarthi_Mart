@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Aarthi Mart</title>
@@ -19,6 +20,9 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="chatbot.css">
+
 </head>
 
 <body>
@@ -1135,10 +1139,6 @@
                 Register
             </a>
 
-            <a href="seller.html">
-                Sell with us
-            </a>
-
             <a href="#categories">
                 Categories
             </a>
@@ -1147,7 +1147,7 @@
 
 
         <p class="copyright">
-            © 2026 Aarthi Mart. All rights reserved.
+            Â© 2026 Aarthi Mart. All rights reserved.
         </p>
 
     </footer>
@@ -1229,5 +1229,47 @@
 
 <script src="script.js"></script>
 
+
+<!-- Aarthi Mart AI Chatbot -->
+<div id="aarthi-ai">
+    <button id="ai-launcher"
+            type="button"
+            aria-label="Open Weirdo AI assistant"
+            aria-expanded="false">
+        <img src="https://i.postimg.cc/QNp2QnXQ/Whats-App-Image-2026-09-14-at-10-27-23-AM.jpg"
+             alt="Aarthi Mart logo">
+    </button>
+
+    <section id="ai-panel" hidden aria-label="Weirdo AI chat">
+        <header class="ai-header">
+            <div>
+                <strong>Weirdo</strong>
+                <p>Aarthi Mart shopping assistant</p>
+            </div>
+            <button id="ai-close" type="button"
+                    aria-label="Close chat">&times;</button>
+        </header>
+
+        <div id="ai-messages" aria-live="polite">
+            <div class="ai-message ai-bot">
+                Hey! &#127800; I'm Weirdo. Need help with
+                products or shopping on Aarthi Mart?
+            </div>
+        </div>
+
+        <form id="ai-form">
+            <input id="ai-input" type="text"
+                   maxlength="500"
+                   placeholder="Ask me anything..."
+                   aria-label="Your message"
+                   required>
+            <button id="ai-send" type="submit"
+                    aria-label="Send message">&#10148;</button>
+        </form>
+    </section>
+</div>
+<script src="chatbot.js"></script>
 </body>
 </html>
+
+
