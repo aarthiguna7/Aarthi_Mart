@@ -2,7 +2,9 @@ package com.aarthi.mart.dao;
 
 import com.aarthi.mart.model.Order;
 import com.aarthi.mart.model.OrderItem;
+import com.aarthi.mart.model.CartItem;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -73,6 +75,172 @@ public class OrderDAO extends BaseDAO {
             return false;
         }
     }
+    
+public int checkoutCart(int userId) {
+    String cartSql = """
+            SELECT product_id, quantity
+            FROM cart_items
+            WHERE user_id = ?
+            ORDER BY product_id
+            FOR UPDATE
+            """;
+
+    String productSql = """
+            SELECT price, stock_qty
+            FROM products
+            WHERE id = ?
+            FOR UPDATE
+            """;
+
+    String orderSql = """
+            INSERT INTO orders (user_id, total_amount, status)
+            VALUES (?, ?, 'PENDING')
+            """;
+
+    String stockSql = """
+            UPDATE products
+            SET stock_qty = stock_qty - ?
+            WHERE id = ?
+              AND stock_qty >= ?
+            """;
+
+    String itemSql = """
+            INSERT INTO order_items
+                (order_id, product_id, quantity, price)
+            VALUES (?, ?, ?, ?)
+            """;
+
+    try (Connection connection = getConnection()) {
+        connection.setAutoCommit(false);
+
+        try {
+            List<CartItem> items = new ArrayList<>();
+
+            try (PreparedStatement statement =
+                         connection.prepareStatement(cartSql)) {
+                statement.setInt(1, userId);
+
+                try (ResultSet result = statement.executeQuery()) {
+                    while (result.next()) {
+                        items.add(new CartItem(
+                                result.getInt("product_id"),
+                                null,
+                                null,
+                                result.getInt("quantity"),
+                                null
+                        ));
+                    }
+                }
+            }
+
+            if (items.isEmpty()) {
+                connection.rollback();
+                return -1;
+            }
+
+            BigDecimal total = BigDecimal.ZERO;
+
+            for (CartItem item : items) {
+                if (item.getQuantity() <= 0) {
+                    connection.rollback();
+                    return -1;
+                }
+
+                try (PreparedStatement statement =
+                             connection.prepareStatement(productSql)) {
+                    statement.setInt(1, item.getProductId());
+
+                    try (ResultSet result = statement.executeQuery()) {
+                        if (!result.next()
+                                || result.getInt("stock_qty")
+                                   < item.getQuantity()) {
+                            connection.rollback();
+                            return -1;
+                        }
+
+                        item.setPrice(result.getBigDecimal("price"));
+                    }
+                }
+
+                total = total.add(
+                        item.getPrice().multiply(
+                                BigDecimal.valueOf(item.getQuantity())
+                        )
+                );
+            }
+
+            int orderId;
+
+            try (PreparedStatement statement =
+                         connection.prepareStatement(
+                                 orderSql,
+                                 java.sql.Statement.RETURN_GENERATED_KEYS
+                         )) {
+                statement.setInt(1, userId);
+                statement.setBigDecimal(2, total);
+
+                if (statement.executeUpdate() != 1) {
+                    throw new java.sql.SQLException(
+                            "Could not create order");
+                }
+
+                try (ResultSet keys = statement.getGeneratedKeys()) {
+                    if (!keys.next()) {
+                        throw new java.sql.SQLException(
+                                "Order ID was not generated");
+                    }
+                    orderId = keys.getInt(1);
+                }
+            }
+
+            for (CartItem item : items) {
+                try (PreparedStatement statement =
+                             connection.prepareStatement(stockSql)) {
+                    statement.setInt(1, item.getQuantity());
+                    statement.setInt(2, item.getProductId());
+                    statement.setInt(3, item.getQuantity());
+
+                    if (statement.executeUpdate() != 1) {
+                        throw new java.sql.SQLException(
+                                "Stock update failed");
+                    }
+                }
+
+                try (PreparedStatement statement =
+                             connection.prepareStatement(itemSql)) {
+                    statement.setInt(1, orderId);
+                    statement.setInt(2, item.getProductId());
+                    statement.setInt(3, item.getQuantity());
+                    statement.setBigDecimal(4, item.getPrice());
+
+                    if (statement.executeUpdate() != 1) {
+                        throw new java.sql.SQLException(
+                                "Order item insert failed");
+                    }
+                }
+            }
+
+            try (PreparedStatement statement =
+                         connection.prepareStatement(
+                                 "DELETE FROM cart_items WHERE user_id = ?")) {
+                statement.setInt(1, userId);
+                statement.executeUpdate();
+            }
+
+            connection.commit();
+            return orderId;
+
+        } catch (Exception e) {
+            connection.rollback();
+            e.printStackTrace();
+            return -1;
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return -1;
+    }
+}
 
 
     public List<Order> getOrdersByUser(int userId) {
