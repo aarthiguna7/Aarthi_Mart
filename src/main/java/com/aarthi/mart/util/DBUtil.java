@@ -18,17 +18,24 @@ public class DBUtil {
         try {
             Properties properties = new Properties();
 
-            try (InputStream input = DBUtil.class
+            InputStream input = DBUtil.class
                     .getClassLoader()
-                    .getResourceAsStream("db.properties")) {
+                    .getResourceAsStream("db.properties");
 
-                if (input == null) {
-                    throw new RuntimeException(
-                            "db.properties not found"
-                    );
-                }
+            if (input == null) {
+                input = DBUtil.class
+                        .getClassLoader()
+                        .getResourceAsStream("db.properties.example");
+            }
 
-                properties.load(input);
+            if (input == null) {
+                throw new RuntimeException(
+                        "db.properties and db.properties.example not found"
+                );
+            }
+
+            try (InputStream configInput = input) {
+                properties.load(configInput);
             }
 
             URL = getConfig(
