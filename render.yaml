@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: aarthi-mart
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: DB_URL
+        value: jdbc:h2:file:/tmp/aarthimartdb
+      - key: DB_USERNAME
+        value: sa
