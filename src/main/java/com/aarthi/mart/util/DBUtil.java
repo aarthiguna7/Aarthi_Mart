@@ -53,9 +53,13 @@ public class DBUtil {
                     properties.getProperty("db.password")
             );
 
-            Class.forName(
-                    properties.getProperty("db.driver")
-            );
+            String driver = URL != null && URL.startsWith("jdbc:postgresql:")
+                    ? "org.postgresql.Driver"
+                    : URL != null && URL.startsWith("jdbc:mysql:")
+                    ? "com.mysql.cj.jdbc.Driver"
+                    : properties.getProperty("db.driver");
+
+            Class.forName(driver);
 
         } catch (Exception e) {
             throw new RuntimeException(
