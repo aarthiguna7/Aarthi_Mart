@@ -37,7 +37,12 @@ public class DbContextListener implements ServletContextListener {
 
             try (Connection connection = dataSource.getConnection()) {
 
-                executeSqlFile(connection, "schema.sql");
+                String schemaFile = DBUtil.getDatabaseUrl() != null
+                        && DBUtil.getDatabaseUrl().startsWith("jdbc:postgresql:")
+                        ? "schema-postgres.sql"
+                        : "schema.sql";
+
+                executeSqlFile(connection, schemaFile);
                 executeSqlFile(connection, "seed.sql");
             }
 
