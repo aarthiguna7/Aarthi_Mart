@@ -188,13 +188,20 @@ INSERT INTO users (
 SELECT
     'Aarthi Mart Admin',
     'admin@aarthimart.com',
-    '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy',
+    '$2a$10$i2rfmOsBdkPVHrlFr0UYHe1wojrHMc4lXJvH/b80gesqbj3ZzmHmi',
     'ADMIN'
 WHERE NOT EXISTS (
     SELECT 1
     FROM users
     WHERE email = 'admin@aarthimart.com'
 );
+
+-- Repair the original seeded admin account if it has the old placeholder hash.
+UPDATE users
+SET password_hash = '$2a$10$i2rfmOsBdkPVHrlFr0UYHe1wojrHMc4lXJvH/b80gesqbj3ZzmHmi'
+WHERE email = 'admin@aarthimart.com'
+  AND role = 'ADMIN'
+  AND password_hash = '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy';
 
 -- ============================================================
 -- SEEDED BUYER
