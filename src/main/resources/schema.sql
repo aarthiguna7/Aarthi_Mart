@@ -225,6 +225,14 @@ WHERE NOT EXISTS (
     WHERE email = 'buyer@aarthimart.com'
 );
 
+-- Repair the seeded buyer password when the legacy placeholder hash is present.
+-- BCrypt hash for: buyer123
+UPDATE users
+SET password_hash = '$2a$10$ATYUg2AAB6WHljmcQ4Vf4e9i60KXsOrzoVz.KN90kzZkhqIkVMxpu'
+WHERE email = 'buyer@aarthimart.com'
+  AND role = 'BUYER'
+  AND password_hash = '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy';
+
 -- ============================================================
 -- WISHLIST
 -- ============================================================
