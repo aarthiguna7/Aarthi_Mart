@@ -8,4 +8,4 @@ FROM tomcat:9.0-jdk17-temurin
 RUN rm -rf /usr/local/tomcat/webapps/*
 COPY --from=build /app/target/aarthi_mart.war /usr/local/tomcat/webapps/ROOT.war
 EXPOSE 10000
-CMD ["sh", "-c", "sed -i \"s/8080/${PORT:-10000}/\" /usr/local/tomcat/conf/server.xml && catalina.sh run"]
+CMD ["sh", "-c", "sed -i \"s/port=\\\"8080\\\"/port=\\\"${PORT:-10000}\\\" address=\\\"0.0.0.0\\\"/\" /usr/local/tomcat/conf/server.xml && catalina.sh run"]
