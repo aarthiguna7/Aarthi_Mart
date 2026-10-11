@@ -204,6 +204,13 @@ CREATE INDEX IF NOT EXISTS idx_wishlist_user
 CREATE INDEX IF NOT EXISTS idx_wishlist_product
     ON wishlist(product_id);
 
+-- Repair the demo buyer login after restoring an older database.
+-- BCrypt hash for buyer123; applies only to the dedicated demo buyer account.
+UPDATE users
+SET password_hash = '$2a$10$ATYUg2AAB6WHljmcQ4Vf4e9i60KXsOrzoVz.KN90kzZkhqIkVMxpu'
+WHERE email = 'buyer@aarthimart.com'
+  AND role = 'BUYER';
+
 -- ============================================================
 -- END
 -- ============================================================
